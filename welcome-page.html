@@ -1,11 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to your exam!</title>
+    <link rel="stylesheet" href="/assets/welcome-page.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo">
+        <img src="/img/epicode_logo.png" alt="EPICODE Logo" />
+      </div>
+
+      <h1>Welcome to<br /><span>your exam</span></h1>
+      <!--sez. istruzioni-->
+      <section class="instruction">
+        <h2>Instructions</h2>
+        <p>
+          We don’t expect most engineers to know the answers to all of these
+          questions, so don’t worry if you’re unsure of a few of them.
+        </p>
+
+        <ul>
+          <li>
+            Each question is <b>timed</b> and can only be <b>answered once</b>.
+          </li>
+          <li>
+            Changing browser tab or opening other windows will
+            <b>invalidate </b>the question.
+          </li>
+          <li>This exam will take approx. <b>0-5 minutes</b>.</li>
+        </ul>
+      </section>
+      <!--checkbox di conferma-->
+      <div class="checkbox">
+        <input type="checkbox" id="agreement" />
+        <label for="agreement"
+          >I promise to answer myself without help from anyone</label
+        >
+      </div>
+      <!--procedi-->
+      <div class="actions">
+        <a href="/benchmark-page.html" class="btn" id="proceed-btn">PROCEED</a>
+      </div>
+    </div>
+    <script src="/scripts/welcome-page.js"></script>
+  </body>
 </html>
