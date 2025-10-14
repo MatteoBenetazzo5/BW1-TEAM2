@@ -27,13 +27,21 @@ body {
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-  text-align: left;
   background-image: url(../img/bg.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   color: white;
   line-height: 1.5em;
+}
+
+.body-wlcm {
+  text-align: left;
   padding: 5em;
+}
+
+.body-bnc {
+  text-align: center;
+  padding: 0.5em;
 }
 
 .container {
@@ -50,11 +58,11 @@ p {
 }
 
 .logo {
+  display: inline-block;
   text-align: left;
   width: 20%;
   margin-top: 2em;
   margin-bottom: 2em;
-  gap: 10px;
 }
 
 .pink {
@@ -101,4 +109,33 @@ p {
 .answers {
   text-align: center;
   list-style-type: none;
+}
+
+.send-btn {
+  text-align: right;
+}
+
+.tot-question {
+  text-align: center;
+}
+
+.answers li {
+  display: inline-block;
+}
+
+.answers {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.answers button {
+  padding: 1em;
+  color: white;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.2);
+  border: solid white;
+  border-bottom: rgba(255, 255, 255, 0.3);
 }
