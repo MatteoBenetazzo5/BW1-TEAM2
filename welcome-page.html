@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Welcome to your exam!</title>
-    <link rel="stylesheet" href="./assets/reset.css" />
     <link rel="stylesheet" href="./assets/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,40 +14,44 @@
   </head>
   <body>
     <div class="container">
-      <div class="logo">
-        <img src="/img/epicode_logo.png" alt="EPICODE Logo" />
+      <div>
+        <img class="logo" src="/img/epicode_logo.png" alt="EPICODE Logo" />
       </div>
 
-      <h1>Welcome to<br /><span>your exam</span></h1>
+      <h1>Welcome to</h1>
+      <h1><strong>your exam</strong></h1>
       <!--sez. istruzioni-->
       <section class="instruction">
-        <h2>Instructions</h2>
+        <h2 class="pink">Instructions</h2>
         <p>
-          We don’t expect most engineers to know the answers to all of these
+          We don’t expect most engineers to know the answers to all of these<br />
           questions, so don’t worry if you’re unsure of a few of them.
         </p>
 
-        <ul>
+        <ul id="welcome-list">
           <li>
             Each question is <b>timed</b> and can only be <b>answered once</b>.
           </li>
           <li>
             Changing browser tab or opening other windows will
-            <b>invalidate </b>the question.
+            <b>invalidate the question</b>.
           </li>
           <li>This exam will take approx. <b>0-5 minutes</b>.</li>
         </ul>
       </section>
       <!--checkbox di conferma-->
       <div class="checkbox">
-        <input type="checkbox" id="agreement" />
+        <input type="checkbox" id="agreement" required />
         <label for="agreement"
-          >I promise to answer myself without help from anyone</label
+          ><strong
+            >I promise to answer myself without help from anyone</strong
+          ></label
         >
       </div>
       <!--procedi-->
       <div class="actions">
-        <a href="/benchmark-page.html" class="btn" id="proceed-btn">PROCEED</a>
+        <a href="/benchmark-page.html" target="_blank"><button type="button"  class="btn" id="proceed-btn">PROCEED</button></a>
+        </a>
       </div>
     </div>
 

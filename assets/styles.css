@@ -7,7 +7,19 @@ h6 {
   font-family: 'Outfit', sans-serif;
   font-optical-sizing: auto;
   font-weight: 700;
-  font-style: 60px;
+}
+
+h1 {
+  font-size: 60px;
+  font-weight: 500;
+}
+
+strong {
+  font-weight: 900;
+}
+
+#welcome-list {
+  padding-left: 1.5em;
 }
 
 body {
@@ -15,11 +27,19 @@ body {
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-  text-align: center;
+  text-align: left;
   background-image: url(../img/bg.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   color: white;
+  line-height: 1.5em;
+  padding: 5em;
+}
+
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
 }
 
 p {
@@ -32,6 +52,9 @@ p {
 .logo {
   text-align: left;
   width: 20%;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  gap: 10px;
 }
 
 .pink {
@@ -48,4 +71,34 @@ p {
 
 #correct {
   text-align: right;
+}
+
+.checkbox {
+  display: inline-block;
+  margin-top: 4em;
+  margin-right: 4em;
+}
+
+.actions {
+  display: inline-block;
+}
+
+.lighter {
+  box-shadow: 1px 1px 59px -1px rgba(0, 255, 255, 1);
+}
+
+#proceed-btn {
+  background-color: #00ffff;
+  border: none;
+  font-weight: bolder;
+  padding: 0.7em 2em;
+}
+
+.question {
+  text-align: center;
+}
+
+.answers {
+  text-align: center;
+  list-style-type: none;
 }
