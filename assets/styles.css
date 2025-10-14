@@ -40,7 +40,6 @@ body {
 }
 
 .body-bnc {
-  text-align: center;
   padding: 0.5em;
 }
 
@@ -63,6 +62,7 @@ p {
   width: 20%;
   margin-top: 2em;
   margin-bottom: 2em;
+  height: 10%;
 }
 
 .pink {
@@ -104,6 +104,8 @@ p {
 
 .question {
   text-align: center;
+  margin-bottom: 3em;
+  font-size: 1.2em;
 }
 
 .answers {
@@ -111,12 +113,9 @@ p {
   list-style-type: none;
 }
 
-.send-btn {
-  text-align: right;
-}
-
 .tot-question {
   text-align: center;
+  font-size: 0.7em;
 }
 
 .answers li {
@@ -138,4 +137,31 @@ p {
   background: rgba(255, 255, 255, 0.2);
   border: solid white;
   border-bottom: rgba(255, 255, 255, 0.3);
+}
+
+.bnc-btn {
+  text-align: right;
+}
+
+#send-btn,
+#prox-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: solid 1px white;
+  padding: 0.4em 2em;
+  color: white;
+  border-radius: 20px;
+}
+
+#bnc-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#timer {
+  text-align: right;
+}
+
+footer {
+  margin-top: 3em;
 }

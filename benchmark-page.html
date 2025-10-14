@@ -13,15 +13,16 @@
     <title>BENCHMARK PAGE</title>
   </head>
   <body class="body-bnc">
-    <header>
-        <img class="logo" src="./img/epicode_logo.png" />
-      </header>
+    <header id="bnc-header">
+      <img class="logo" src="./img/epicode_logo.png" />
+      <canvas id="timer"></canvas>
+    </header>
     <div class="container">
       <main id="quiz">
         <!-- DOMANDA 1 -->
         <section id="one">
           <div class="question">
-            <h3>Chi ha diretto <strong>“Inception”?</strong></h3>
+            <h2>Chi ha diretto <strong>“Inception”?</strong></h2>
           </div>
           <div class="answers">
             <button type="button" class="choice" data-correct="true">
@@ -192,18 +193,36 @@
       </main>
 
       <footer>
-        <div class="send-btn">
-          <a href="./results-page.html"
-            ><h3><button type="button">INVIA RISPOSTA</button></h3></a
-          >
+        <div class="bnc-btn">
+          <h3>
+            <a>
+              <button id="prox-btn" type="button">
+                PROSSIMA<ion-icon
+                  name="arrow-forward-outline"
+                ></ion-icon></button
+            ></a>
+          </h3>
         </div>
+        <!-- <div class="bcn-btn" >
+          <a href="./results-page.html"
+            ><h3><button id="send-btn" type="button">INVIA RISPOSTA</button></h3></a
+          >
+        </div> -->
 
         <div class="tot-question">
-          <p>QUESTION /10</p>
+          <p>QUESTION <span class="pink">/10</span></p>
         </div>
       </footer>
     </div>
     <!-- link per utilizzare js all'interno di questo html -->
     <script src="./scripts/benchmark-page.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
   </body>
 </html>
