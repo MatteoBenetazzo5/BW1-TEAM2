@@ -101,43 +101,43 @@ const questions = [
   },
 ];
 
-let currentQuestion = 0;
+let currentIndex = 0;
 const proxBtn = document.getElementById('prox-btn');
 const quizContainer = document.getElementById('quiz');
 
 function cicleQuestion(index) {
-  const questionObj = questions[index];
-  // costruisco struttura per ogni domanda/risposte
-  let quizHtml = quizHtml.innerHTML `<section id="q${index + 1}">`;
-  quizHtml += `<div class="question"><h2>${questionObj.question}</h2></div>`;
-  quizHtml += `<div class="answers">`;
-  questionObj.answers.forEach((ans, ansIndex) => {
-    // se è corretto, aggiungiamo l’attributo data-correct="true"
-    const correctAttr = ans.correct ? ` data-correct="true"` : '';
+  const q = questions[index];
+
+  // costruisco l'HTML come stringa e lo inietto nel container
+  let html = `<section id="q${index + 1}">`;
+  html += `<div class="question"><h2>${q.question}</h2></div>`;
+  html += `<div class="answers">`;
+  q.answers.forEach((ans, ansIndex) => {
+    const correctAttr = ans.correct ? ' data-correct="true"' : '';
     html += `<button type="button" class="choice"${correctAttr} data-index="${ansIndex}">${ans.choise}</button>`;
   });
-  quizHtml += `</div>`;
-  quizHtml += `</section>`;
+  html += `</div>`;
+  html += `</section>`;
 
+  quizContainer.innerHTML = html;
+
+  // se siamo all’ultima domanda, cambiamo il testo del pulsante o lo nascondiamo
+  if (index === questions.length - 1) {
+    proxBtn.innerText = 'INVIA';
+  } else {
+    proxBtn.innerText = 'PROSSIMA';
+  }
 }
- quizContainer.appendChild(quizHtml);
 
-// se siamo all’ultima domanda, cambiamo il testo del pulsante o lo nascondiamo
-if (index === questions.length - 1) {
-  proxBtn.innerText = 'INVIA';
-} else {
-  proxBtn.innerText = 'PROSSIMA';
-}
-
+//fino alla fine delle domande clicco il bottone
 proxBtn.addEventListener('click', () => {
   if (currentIndex < questions.length - 1) {
     currentIndex += 1;
     cicleQuestion(currentIndex);
   } else {
-    // siamo all’ultima domanda e l’utente clicca “Invia”
-    // qui si la il codice per l'invio, raccolta risposte, e pagina di results
+    // ultima domanda: qui potresti raccogliere risposte e mostrare i risultati
   }
 });
 
 // mostra la prima domanda all’avvio
-cicleQuestion(index);
+cicleQuestion(currentIndex);
