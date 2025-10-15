@@ -3,30 +3,30 @@ const questions = [
     //         <!-- DOMANDA 1 -->
     question: `Chi ha diretto <strong>“Inception”?</strong>`,
     answers: [
-      { choise: 'Christopher Nolan', correct: true },
-      { choise: 'Steven Spielberg', correct: false },
-      { choise: 'Ridley Scott', correct: false },
-      { choise: 'James Cameron', correct: false },
+      { choice: 'Christopher Nolan', correct: true },
+      { choice: 'Steven Spielberg', correct: false },
+      { choice: 'Ridley Scott', correct: false },
+      { choice: 'James Cameron', correct: false },
     ],
   },
   {
     //         <!-- DOMANDA 2 -->
     question: `In quale anno è uscito “Titanic”?`,
     answers: [
-      { choise: '1995', correct: false },
-      { choise: '1997', correct: true },
-      { choise: '1999', correct: false },
-      { choise: '2001', correct: false },
+      { choice: '1995', correct: false },
+      { choice: '1997', correct: true },
+      { choice: '1999', correct: false },
+      { choice: '2001', correct: false },
     ],
   },
   {
     //         <!-- DOMANDA 3 -->
     question: `Quale attore interpreta Jack Sparrow?`,
     answers: [
-      { choise: 'Keanu Reeves', correct: false },
-      { choise: 'Johnny Depp', correct: true },
-      { choise: 'Leonardo DiCaprio', correct: false },
-      { choise: 'Robert Downey Jr.', correct: false },
+      { choice: 'Keanu Reeves', correct: false },
+      { choice: 'Johnny Depp', correct: true },
+      { choice: 'Leonardo DiCaprio', correct: false },
+      { choice: 'Robert Downey Jr.', correct: false },
     ],
   },
 
@@ -34,10 +34,10 @@ const questions = [
     //         <!-- DOMANDA 4 -->
     question: 'Qual è il vero nome di “Neo” in Matrix?',
     answers: [
-      { choise: 'Thomas Anderson', correct: true },
-      { choise: 'John Wick', correct: false },
-      { choise: 'Peter Parker', correct: false },
-      { choise: 'Paul Atreides', correct: false },
+      { choice: 'Thomas Anderson', correct: true },
+      { choice: 'John Wick', correct: false },
+      { choice: 'Peter Parker', correct: false },
+      { choice: 'Paul Atreides', correct: false },
     ],
   },
 
@@ -45,38 +45,38 @@ const questions = [
     //         <!-- DOMANDA 5 -->
     question: 'Quanti film compongono la trilogia originale di Star Wars?',
     answers: [
-      { choise: '2', correct: false },
-      { choise: '3', correct: true },
-      { choise: '4', correct: false },
-      { choise: '6', correct: false },
+      { choice: '2', correct: false },
+      { choice: '3', correct: true },
+      { choice: '4', correct: false },
+      { choice: '6', correct: false },
     ],
   },
   {
     //         <!-- DOMANDA 6 -->
     question: 'Il film ha vinto l’Oscar nel 2020, è stato vinto da Parasite?',
     answers: [
-      { choise: 'vero', correct: true },
-      { choise: 'falso', correct: false },
+      { choice: 'vero', correct: true },
+      { choice: 'falso', correct: false },
     ],
   },
   {
     //         <!-- DOMANDA 7 -->
     question: 'Chi ha scritto e diretto “Pulp Fiction”?',
     answers: [
-      { choise: 'Quentin Tarantino', correct: true },
-      { choise: 'Guy Ritchie', correct: false },
-      { choise: 'Francis Ford Coppola', correct: false },
-      { choise: 'David Fincher', correct: false },
+      { choice: 'Quentin Tarantino', correct: true },
+      { choice: 'Guy Ritchie', correct: false },
+      { choice: 'Francis Ford Coppola', correct: false },
+      { choice: 'David Fincher', correct: false },
     ],
   },
   {
     //         <!-- DOMANDA 8 -->
     question: 'Il Leone d’Oro viene assegnato al Festival di…',
     answers: [
-      { choise: 'Cannes', correct: false },
-      { choise: 'Berlino', correct: false },
-      { choise: 'Venezia', correct: true },
-      { choise: 'Locarno', correct: false },
+      { choice: 'Cannes', correct: false },
+      { choice: 'Berlino', correct: false },
+      { choice: 'Venezia', correct: true },
+      { choice: 'Locarno', correct: false },
     ],
   },
   {
@@ -84,10 +84,10 @@ const questions = [
     question:
       'Ne “Il Signore degli Anelli”, come si chiama la terra degli Hobbit?',
     answers: [
-      { choise: 'Mordor', correct: false },
-      { choise: 'Gondor', correct: false },
-      { choise: 'La Contea', correct: true },
-      { choise: 'Rivendell', correct: false },
+      { choice: 'Mordor', correct: false },
+      { choice: 'Gondor', correct: false },
+      { choice: 'La Contea', correct: true },
+      { choice: 'Rivendell', correct: false },
     ],
   },
   {
@@ -95,8 +95,8 @@ const questions = [
     question:
       'La Vedova Nera nel Marvel Cinematic Universe viene interpretata da Scarlett Johansson',
     answers: [
-      { choise: 'Vero', correct: true },
-      { choise: 'Falso', correct: false },
+      { choice: 'Vero', correct: true },
+      { choice: 'Falso', correct: false },
     ],
   },
 ];
@@ -114,7 +114,7 @@ function cicleQuestion(index) {
   html += `<div class="answers">`;
   q.answers.forEach((ans, ansIndex) => {
     const correctAttr = ans.correct ? ' data-correct="true"' : '';
-    html += `<button type="button" class="choice"${correctAttr} data-index="${ansIndex}">${ans.choise}</button>`;
+    html += `<button type="button" class="choice"${correctAttr} data-index="${ansIndex}">${ans.choice}</button>`;
   });
   html += `</div>`;
   html += `</section>`;
@@ -138,7 +138,6 @@ proxBtn.addEventListener('click', () => {
     // --- AGGIUNTO: reset & restart timer ad ogni click su PROSSIMA/INVIA ---
     resetTimer();
     startTimer();
-
   } else {
     // ultima domanda: qui potresti raccogliere risposte e mostrare i risultati
   }
@@ -254,8 +253,8 @@ function startTimer() {
 
       // quando il tempo finisce, passa alla prossima domanda
       if (indice < domande.length - 1) {
-        indice = indice + 1;        // vai alla prossima
-        mostraDomanda(indice);      // cambia i testi e resetta timer
+        indice = indice + 1; // vai alla prossima
+        mostraDomanda(indice); // cambia i testi e resetta timer
       } else {
         // se era l'ultima domanda → vai alla pagina risultati
         salvaPerRisultati();
