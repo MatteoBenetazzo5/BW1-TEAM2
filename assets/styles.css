@@ -273,3 +273,24 @@ canvas {
   border-color: #00f5ff;
   font-weight: bold;
 }
+/*CIAMBELLONA*/
+/* Risultati - Donut Chart */
+.center-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4em;
+  color: white;
+}
+
+#resultsChart {
+  width: 250px !important;
+  height: 250px !important;
+}
+
+#message {
+  text-align: center;
+  font-size: 1.2em;
+  margin-top: 1em;
+  font-weight: 600;
+}
