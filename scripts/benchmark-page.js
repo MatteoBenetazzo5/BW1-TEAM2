@@ -99,250 +99,250 @@ const questions = [
       { choice: "Falso", correct: false },
     ],
   },
-]
+];
 
-let currentIndex = 0
-const proxBtn = document.getElementById("prox-btn")
-const quizContainer = document.getElementById("quiz")
+let currentIndex = 0;
+const proxBtn = document.getElementById("prox-btn");
+const quizContainer = document.getElementById("quiz");
 // chiamo la riga dove inserire il counter
-const counterElement = document.querySelector(".tot-question p")
+const counterElement = document.querySelector(".tot-question p");
 
 //funzione per aggiornare il counter delle domande
 const updateCounter = function () {
-  let domandaCorrente = currentIndex + 1
-  let totaleDomande = questions.length
+  let domandaCorrente = currentIndex + 1;
+  let totaleDomande = questions.length;
   counterElement.innerHTML =
     "QUESTION <span class= 'pink'>" +
     domandaCorrente +
     "/" +
     totaleDomande +
-    "</span>"
-}
+    "</span>";
+};
 
 function cicleQuestion(index) {
-  const q = questions[index]
+  const q = questions[index];
 
   // costruisco l'HTML come stringa e lo inietto nel container
-  let html = `<section id="q${index + 1}">`
-  html += `<div class="question"><h2>${q.question}</h2></div>`
-  html += `<div class="answers">`
+  let html = `<section id="q${index + 1}">`;
+  html += `<div class="question"><h2>${q.question}</h2></div>`;
+  html += `<div class="answers">`;
   q.answers.forEach((ans, ansIndex) => {
-    const correctAttr = ans.correct ? ' data-correct="true"' : ""
-    html += `<button type="button" class="choice"${correctAttr} data-index="${ansIndex}">${ans.choice}</button>`
-  })
-  html += `</div>`
-  html += `</section>`
+    const correctAttr = ans.correct ? ' data-correct="true"' : "";
+    html += `<button type="button" class="choice"${correctAttr} data-index="${ansIndex}">${ans.choice}</button>`;
+  });
+  html += `</div>`;
+  html += `</section>`;
 
-  quizContainer.innerHTML = html
+  quizContainer.innerHTML = html;
 
   // se siamo all’ultima domanda, cambiamo il testo del pulsante o lo nascondiamo
   if (index === questions.length - 1) {
-    proxBtn.innerText = "INVIA"
+    proxBtn.innerText = "INVIA";
   } else {
-    proxBtn.innerText = "PROSSIMA"
+    proxBtn.innerText = "PROSSIMA";
   }
-  updateCounter()
+  updateCounter();
 }
 
 //fino alla fine delle domande clicco il bottone
 proxBtn.addEventListener("click", () => {
   if (currentIndex < questions.length - 1) {
-    currentIndex += 1
-    cicleQuestion(currentIndex)
+    currentIndex += 1;
+    cicleQuestion(currentIndex);
 
     // --- AGGIUNTO: reset & restart timer ad ogni click su PROSSIMA/INVIA ---
-    resetTimer()
-    startTimer()
+    resetTimer();
+    startTimer();
   } else {
     // ultima domanda: qui potresti raccogliere risposte e mostrare i risultati
   }
-})
+});
 
 // mostra la prima domanda all’avvio
-cicleQuestion(currentIndex)
+cicleQuestion(currentIndex);
 
 // 1) RIFERIMENTI E BASE SU CUI LAVORARE IN JS CON IL BENCHMARK
-const titoloDomanda = document.querySelector("#one .question h2") // l'<h2> della domanda corrente
-const pulsanti = Array.from(document.querySelectorAll("#one .answers .choice")) // i 4 bottoni (corretto il selettore)
-const bottoneInvia = document.querySelector("#prox-btn") // il pulsante per passare alla domanda successiva
-const timerCanvas = document.querySelector("#timer") // il Canvas del timer
-const ctx = timerCanvas.getContext("2d") // pannello 2D del timer fatto con Canvas
+const titoloDomanda = document.querySelector("#one .question h2"); // l'<h2> della domanda corrente
+const pulsanti = Array.from(document.querySelectorAll("#one .answers .choice")); // i 4 bottoni (corretto il selettore)
+const bottoneInvia = document.querySelector("#prox-btn"); // il pulsante per passare alla domanda successiva
+const timerCanvas = document.querySelector("#timer"); // il Canvas del timer
+const ctx = timerCanvas.getContext("2d"); // pannello 2D del timer fatto con Canvas
 
 // Stato del benchmark
-let indice = 0 // quale domanda sto mostrando (0 = la prima domanda)
-let possoAndareAvanti = false // diventa vera se clicchi solo su quella giusta
-let punteggio = 0 // da usare nei risultati
-let logRisposte = [] // serve per salvare le risposte fatte, per poi poterle usare nei risultati
+let indice = 0; // quale domanda sto mostrando (0 = la prima domanda)
+let possoAndareAvanti = false; // diventa vera se clicchi solo su quella giusta
+let punteggio = 0; // da usare nei risultati
+let logRisposte = []; // serve per salvare le risposte fatte, per poi poterle usare nei risultati
 
 // Timer di 30 sec. massimi per ogni risposta
-const TEMPO_MAX = 30
-let tempoRimasto = TEMPO_MAX
-let idTimer = null
+const TEMPO_MAX = 30;
+let tempoRimasto = TEMPO_MAX;
+let idTimer = null;
 
 // SEZIONE TIMER
 // 1) IMPOSTAZIONE GRAFICA DEL TIMER (aspetto e posizione)
-const header = document.querySelector("#bnc-header") // header per posizionare il timer
-header.style.position = "relative" // serve per posizionare assolutamente il canvas
-timerCanvas.style.position = "absolute"
-timerCanvas.style.top = "20px"
-timerCanvas.style.right = "24px"
-timerCanvas.style.width = "100px" // diametro visivo del timer
-timerCanvas.style.height = "100px"
+const header = document.querySelector("#bnc-header"); // header per posizionare il timer
+header.style.position = "relative"; // serve per posizionare assolutamente il canvas
+timerCanvas.style.position = "absolute";
+timerCanvas.style.top = "20px";
+timerCanvas.style.right = "24px";
+timerCanvas.style.width = "100px"; // diametro visivo del timer
+timerCanvas.style.height = "100px";
 
 // pixel ratio per schermo nitido
-const DPR = window.devicePixelRatio || 1
-const CSS_SIZE = 100
-timerCanvas.width = CSS_SIZE * DPR
-timerCanvas.height = CSS_SIZE * DPR
-ctx.scale(DPR, DPR) // adatta le coordinate grafiche
+const DPR = window.devicePixelRatio || 1;
+const CSS_SIZE = 100;
+timerCanvas.width = CSS_SIZE * DPR;
+timerCanvas.height = CSS_SIZE * DPR;
+ctx.scale(DPR, DPR); // adatta le coordinate grafiche
 
 // colori e stili del timer
-const COLOR_RING = "#00ffff" // ciano acceso
-const COLOR_TRACK = "rgba(255,255,255,0.25)" // anello grigio chiaro
-const COLOR_TEXT = "#ffffff" // bianco
-const SHADOW = "rgba(0,255,255,0.35)" // bagliore leggero azzurro
+const COLOR_RING = "#00ffff"; // ciano acceso
+const COLOR_TRACK = "rgba(255,255,255,0.25)"; // anello grigio chiaro
+const COLOR_TEXT = "#ffffff"; // bianco
+const SHADOW = "rgba(0,255,255,0.35)"; // bagliore leggero azzurro
 
 // parametri geometrici del cerchio
-const size = CSS_SIZE
-const cx = size / 2
-const cy = size / 2
-const radius = 42 // raggio dell’anello
-const thickness = 10 // spessore dell’anello
-const startAngle = -Math.PI / 2 // parte dall’alto
+const size = CSS_SIZE;
+const cx = size / 2;
+const cy = size / 2;
+const radius = 42; // raggio dell’anello
+const thickness = 10; // spessore dell’anello
+const startAngle = -Math.PI / 2; // parte dall’alto
 
 // 2) FUNZIONE CHE DISEGNA IL TIMER OGNI SECONDO
 function disegnaTimer(sec) {
   // pulizia area del canvas (trasparente → si vede lo sfondo pagina dietro)
-  ctx.clearRect(0, 0, size, size)
+  ctx.clearRect(0, 0, size, size);
 
   // bagliore attorno
-  ctx.save()
-  ctx.shadowColor = SHADOW
-  ctx.shadowBlur = 12
+  ctx.save();
+  ctx.shadowColor = SHADOW;
+  ctx.shadowBlur = 12;
 
   // cerchio di sfondo (track)
-  ctx.beginPath()
-  ctx.lineWidth = thickness
-  ctx.strokeStyle = COLOR_TRACK
-  ctx.lineCap = "round"
-  ctx.arc(cx, cy, radius, 0, Math.PI * 2)
-  ctx.stroke()
+  ctx.beginPath();
+  ctx.lineWidth = thickness;
+  ctx.strokeStyle = COLOR_TRACK;
+  ctx.lineCap = "round";
+  ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+  ctx.stroke();
 
   // cerchio principale (riempimento progressivo)
-  const progress = Math.max(sec, 0) / TEMPO_MAX // da 1 a 0
-  const endAngle = startAngle + progress * Math.PI * 2
-  ctx.beginPath()
-  ctx.strokeStyle = COLOR_RING
-  ctx.arc(cx, cy, radius, startAngle, endAngle, false)
-  ctx.stroke()
-  ctx.restore()
+  const progress = Math.max(sec, 0) / TEMPO_MAX; // da 1 a 0
+  const endAngle = startAngle + progress * Math.PI * 2;
+  ctx.beginPath();
+  ctx.strokeStyle = COLOR_RING;
+  ctx.arc(cx, cy, radius, startAngle, endAngle, false);
+  ctx.stroke();
+  ctx.restore();
 
   // testo “SECONDS” sopra
-  ctx.fillStyle = COLOR_TEXT
-  ctx.textAlign = "center"
-  ctx.globalAlpha = 0.9
-  ctx.font = '700 9px "Outfit", sans-serif'
-  ctx.fillText("SECONDS", cx, cy - 20)
+  ctx.fillStyle = COLOR_TEXT;
+  ctx.textAlign = "center";
+  ctx.globalAlpha = 0.9;
+  ctx.font = '700 9px "Outfit", sans-serif';
+  ctx.fillText("SECONDS", cx, cy - 20);
 
   // numero grande centrale
-  ctx.globalAlpha = 1
-  ctx.font = '700 26px "Outfit", sans-serif'
-  ctx.fillText(String(sec), cx, cy + 2)
+  ctx.globalAlpha = 1;
+  ctx.font = '700 26px "Outfit", sans-serif';
+  ctx.fillText(String(sec), cx, cy + 2);
 
   // testo “REMAINING” sotto
-  ctx.globalAlpha = 0.8
-  ctx.font = '700 9px "Outfit", sans-serif'
-  ctx.fillText("REMAINING", cx, cy + 22)
+  ctx.globalAlpha = 0.8;
+  ctx.font = '700 9px "Outfit", sans-serif';
+  ctx.fillText("REMAINING", cx, cy + 22);
 }
 
 // 3) FUNZIONI PER GESTIRE IL TIMER (start, stop, reset)
 function startTimer() {
-  disegnaTimer(tempoRimasto) // prima immagine (30s)
-  clearInterval(idTimer)
+  disegnaTimer(tempoRimasto); // prima immagine (30s)
+  clearInterval(idTimer);
   idTimer = setInterval(function () {
-    tempoRimasto = tempoRimasto - 1
+    tempoRimasto = tempoRimasto - 1;
 
     if (tempoRimasto < 0) {
-      tempoRimasto = 0
-      stopTimer()
+      tempoRimasto = 0;
+      stopTimer();
 
       // quando il tempo finisce, passa alla prossima domanda
       if (indice < domande.length - 1) {
-        indice = indice + 1 // vai alla prossima
-        mostraDomanda(indice) // cambia i testi e resetta timer
+        indice = indice + 1; // vai alla prossima
+        mostraDomanda(indice); // cambia i testi e resetta timer
       } else {
         // se era l'ultima domanda → vai alla pagina risultati
-        salvaPerRisultati()
-        window.location.href = "./results-page.html"
+        salvaPerRisultati();
+        window.location.href = "./results-page.html";
       }
     }
-    disegnaTimer(tempoRimasto)
-  }, 1000)
+    disegnaTimer(tempoRimasto);
+  }, 1000);
 }
 
 function resetTimer() {
-  tempoRimasto = TEMPO_MAX
-  disegnaTimer(tempoRimasto)
+  tempoRimasto = TEMPO_MAX;
+  disegnaTimer(tempoRimasto);
 }
 
 function stopTimer() {
   if (idTimer) {
-    clearInterval(idTimer)
-    idTimer = null
+    clearInterval(idTimer);
+    idTimer = null;
   }
 }
 
 // 4) AVVIO DEL TIMER AUTOMATICO
-startTimer()
-const choiches = document.querySelectorAll(".choiche")
+startTimer();
+const choiches = document.querySelectorAll(".choiche");
 
-let answersGiven = []
+let answersGiven = [];
 //Domanda corrente
-let currentQuestion = 1
+let currentQuestion = 1;
 // add listener per bottone
 choiches.forEach((button) => {
   button.addEventListener("click", (event) => {
-    const selected = event.target
-    const questionSection = selected.closest("section")
+    const selected = event.target;
+    const questionSection = selected.closest("section");
     const questionId = questionSection
       ? questionSection.id
-      : `question-${currentQuestion}`
+      : `question-${currentQuestion}`;
     // Verifica risposte
-    const isCorrect = selected.dataset.correct === "true"
-    const answerText = selected.textContent.trim()
+    const isCorrect = selected.dataset.correct === "true";
+    const answerText = selected.textContent.trim();
 
     const answerObj = {
       questionId,
       answerText,
       isCorrect,
-    }
+    };
     const existingIndex = answersGiven.findIndex(
       (ans) => ans.questionId === questionId
-    )
+    );
     if (existingIndex !== -1) {
-      answersGiven[existingIndex] = answerObj
+      answersGiven[existingIndex] = answerObj;
     } else {
-      answersGiven.push(answerObj)
+      answersGiven.push(answerObj);
     }
 
-    localStorage.setItem("userAnswers", JSON.stringify(answersGiven))
-    console.log(answersGiven)
-    const allButtons = questionSection.querySelectorAll(".choice")
-    allButtons.forEach((btn) => btn.classList.remove("selected"))
-    selected.classList.add("selected")
-  })
-})
+    localStorage.setItem("userAnswers", JSON.stringify(answersGiven));
+    console.log(answersGiven);
+    const allButtons = questionSection.querySelectorAll(".choice");
+    allButtons.forEach((btn) => btn.classList.remove("selected"));
+    selected.classList.add("selected");
+  });
+});
 
 // Evidenziazione rosa: aggiunge/rimuove .selected senza cambiare la tua logica di avanzamento
 quizContainer.addEventListener("click", (e) => {
-  const btn = e.target.closest(".choice")
-  if (!btn) return
+  const btn = e.target.closest(".choice");
+  if (!btn) return;
 
-  const section = btn.closest("section")
+  const section = btn.closest("section");
   if (section) {
     section
       .querySelectorAll(".choice")
-      .forEach((b) => b.classList.remove("selected"))
+      .forEach((b) => b.classList.remove("selected"));
   }
-  btn.classList.add("selected")
-})
+  btn.classList.add("selected");
+});
