@@ -128,7 +128,7 @@ function cicleQuestion(index) {
   html += `<div class="answers">`
   q.answers.forEach((ans, ansIndex) => {
     const correctAttr = ans.correct ? ' data-correct="true"' : ""
-    html += `<button type="button" class="choice"${correctAttr} data-index="${ansIndex}">${ans.choise}</button>`
+    html += `<button type="button" class="choice"${correctAttr} data-index="${ansIndex}">${ans.choice}</button>`
   })
   html += `</div>`
   html += `</section>`
@@ -138,9 +138,8 @@ function cicleQuestion(index) {
   // se siamo all’ultima domanda, cambiamo il testo del pulsante o lo nascondiamo
   if (index === questions.length - 1) {
     proxBtn.innerText = "INVIA"
-  } else {
-    proxBtn.innerText = "PROSSIMA"
   }
+
   updateCounter()
 }
 
