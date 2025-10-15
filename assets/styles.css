@@ -191,7 +191,11 @@ svg {
 
 #timer {
   text-align: right;
+  width: 140px;
+  height: 40px;
+  margin-top: 2em;
 }
+
 
 /* RESULT-PAGE */
 footer {
