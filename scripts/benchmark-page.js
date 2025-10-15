@@ -128,7 +128,7 @@ function cicleQuestion(index) {
   html += `<div class="answers">`
   q.answers.forEach((ans, ansIndex) => {
     const correctAttr = ans.correct ? ' data-correct="true"' : ""
-    html += `<button type="button" class="choice"${correctAttr} data-index="${ansIndex}">${ans.choise}</button>`
+    html += `<button type="button" class="choice"${correctAttr} data-index="${ansIndex}">${ans.choice}</button>`
   })
   html += `</div>`
   html += `</section>`
