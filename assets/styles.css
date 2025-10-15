@@ -196,7 +196,6 @@ svg {
   margin-top: 2em;
 }
 
-
 /* RESULT-PAGE */
 footer {
   margin-top: 3em;
@@ -255,4 +254,12 @@ footer {
   color: black;
   border-color: #00f5ff;
   font-weight: bold;
+}
+canvas {
+  max-width: 400px;
+  margin: 0 auto;
+}
+#message {
+  font-size: 1.2em;
+  margin-top: 20px;
 }
