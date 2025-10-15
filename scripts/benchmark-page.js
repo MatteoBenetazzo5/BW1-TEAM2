@@ -134,6 +134,11 @@ proxBtn.addEventListener('click', () => {
   if (currentIndex < questions.length - 1) {
     currentIndex += 1;
     cicleQuestion(currentIndex);
+
+    // --- AGGIUNTO: reset & restart timer ad ogni click su PROSSIMA/INVIA ---
+    resetTimer();
+    startTimer();
+
   } else {
     // ultima domanda: qui potresti raccogliere risposte e mostrare i risultati
   }
@@ -253,6 +258,11 @@ function startTimer() {
       if (indice < domande.length - 1) {
         indice = indice + 1;        // vai alla prossima
         mostraDomanda(indice);      // cambia i testi e resetta timer
+
+        // --- AGGIUNTO: reset & restart timer quando il tempo finisce ---
+        resetTimer();
+        startTimer();
+
       } else {
         // se era l'ultima domanda → vai alla pagina risultati
         salvaPerRisultati();
