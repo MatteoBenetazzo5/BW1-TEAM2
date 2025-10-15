@@ -138,9 +138,8 @@ function cicleQuestion(index) {
   // se siamo all’ultima domanda, cambiamo il testo del pulsante o lo nascondiamo
   if (index === questions.length - 1) {
     proxBtn.innerText = "INVIA"
-  } else {
-    proxBtn.innerText = "PROSSIMA"
   }
+
   updateCounter()
 }
 
