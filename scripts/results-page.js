@@ -1,3 +1,5 @@
+/* const savedAnswers = JSON.parse(localStorage.getItem('userAnswers')) || [];
+console.log('Risposte salvate:', savedAnswers); */
 const totalQuestions = 10;
 const correctAnswers = 6;
 const wrongAnswers = totalQuestions - correctAnswers;
