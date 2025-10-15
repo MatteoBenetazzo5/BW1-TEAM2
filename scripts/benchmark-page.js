@@ -133,5 +133,3 @@ function stopTimer() {
 
 // 4) AVVIO DEL TIMER AUTOMATICO
 startTimer();
-
-
