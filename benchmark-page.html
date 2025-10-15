@@ -14,42 +14,47 @@
   </head>
   <body class="body-bnc">
     <header id="bnc-header">
-      <img class="logo" src="./img/epicode_logo.png" />
-      <canvas id="timer">TIMER</canvas>
+      <img class="logo" src="./img/epicode_logo.png" alt="Epicode logo" />
       <canvas id="timer"></canvas>
     </header>
+
     <div class="container">
       <main id="quiz">
         <section id="two">
           <div class="question">
             <h2>In quale anno è uscito “Titanic”?</h2>
           </div>
-          <div class="answers"></div>
+          <div class="answers">
+            <button class="choice">1995</button>
+            <button class="choice" data-correct="true">1997</button>
+            <button class="choice">1999</button>
+            <button class="choice">2001</button>
+          </div>
         </section>
       </main>
+
       <footer>
         <div class="bnc-btn">
           <h3>
-            <a>
-              <button id="prox-btn" type="button">
-                PROSSIMA<ion-icon
-                  name="arrow-forward-outline"
-                ></ion-icon></button
-            ></a>
+            <button id="prox-btn" type="button">
+              PROSSIMA
+              <ion-icon name="arrow-forward-outline"></ion-icon>
+            </button>
           </h3>
         </div>
-        <!-- <div class="bcn-btn" >
-          <a href="./results-page.html"
-            ><h3><button id="send-btn" type="button">INVIA RISPOSTA</button></h3></a
-          >
-        </div> -->
+
+        <div class="bcn-btn">
+          <h3>
+            <button id="submit-btn" type="button">INVIA RISPOSTA</button>
+          </h3>
+        </div>
 
         <div class="tot-question">
           <p>QUESTION <span class="pink">/10</span></p>
         </div>
       </footer>
     </div>
-    <!-- link per utilizzare js all'interno di questo html -->
+
     <script src="./scripts/benchmark-page.js"></script>
     <script
       type="module"
