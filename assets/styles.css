@@ -244,11 +244,16 @@ footer {
   margin-top: 2em;
 }
 
-.star:hover {
+ .star:hover {
   fill: #00ffff;
-}
-.star.active {
-  fill: #00ffff;
+} */
+
+/* salvare le risposte del benchmark*/
+.choice.selected {
+  background-color: #00f5ff;
+  color: black;
+  border-color: #00f5ff;
+  font-weight: bold;
 }
 canvas {
   max-width: 400px;
@@ -257,11 +262,4 @@ canvas {
 #message {
   font-size: 1.2em;
   margin-top: 20px;
-}
-
-.choice.selected {
-  background-color: #00f5ff;
-  color: black;
-  border-color: #00f5ff;
-  font-weight: bold;
 }
