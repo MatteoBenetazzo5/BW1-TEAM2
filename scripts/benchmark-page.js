@@ -324,3 +324,16 @@ choiches.forEach((button) => {
     selected.classList.add("selected");
   });
 });
+
+
+// Evidenziazione rosa: aggiunge/rimuove .selected senza cambiare la tua logica di avanzamento
+quizContainer.addEventListener('click', (e) => {
+  const btn = e.target.closest('.choice');
+  if (!btn) return;
+
+  const section = btn.closest('section');
+  if (section) {
+    section.querySelectorAll('.choice').forEach((b) => b.classList.remove('selected'));
+  }
+  btn.classList.add('selected');
+});
