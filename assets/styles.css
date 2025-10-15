@@ -35,8 +35,8 @@ body {
   color: white;
   line-height: 1.5em;
   height: 100vh;
-    box-sizing: border-box;
-    margin: 0;
+  box-sizing: border-box;
+  margin: 0;
 }
 
 .body-wlcm {
@@ -244,3 +244,11 @@ footer {
 /* .star:hover {
   fill: #00ffff;
 } */
+
+/* salvare le risposte del benchmark*/
+.choice.selected {
+  background-color: #00f5ff;
+  color: black;
+  border-color: #00f5ff;
+  font-weight: bold;
+}
