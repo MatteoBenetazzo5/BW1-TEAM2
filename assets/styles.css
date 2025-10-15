@@ -258,3 +258,10 @@ canvas {
   font-size: 1.2em;
   margin-top: 20px;
 }
+
+.choice.selected {
+  background-color: #00f5ff;
+  color: black;
+  border-color: #00f5ff;
+  font-weight: bold;
+}
