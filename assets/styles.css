@@ -35,8 +35,8 @@ body {
   color: white;
   line-height: 1.5em;
   height: 100vh;
-    box-sizing: border-box;
-    margin: 0;
+  box-sizing: border-box;
+  margin: 0;
 }
 
 .body-wlcm {
@@ -191,6 +191,9 @@ svg {
 
 #timer {
   text-align: right;
+  width: 140px;
+  height: 40px;
+  margin-top: 2em;
 }
 
 /* RESULT-PAGE */
@@ -241,6 +244,15 @@ footer {
   margin-top: 2em;
 }
 
-/* .star:hover {
+.star:hover {
   fill: #00ffff;
-} */
+}
+
+canvas {
+  max-width: 400px;
+  margin: 0 auto;
+}
+#message {
+  font-size: 1.2em;
+  margin-top: 20px;
+}
