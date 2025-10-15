@@ -154,6 +154,7 @@ proxBtn.addEventListener("click", () => {
     startTimer()
   } else {
     // ultima domanda: qui potresti raccogliere risposte e mostrare i risultati
+    window.location.href = "results-page.html"
   }
 })
 
@@ -293,7 +294,7 @@ function stopTimer() {
 
 // 4) AVVIO DEL TIMER AUTOMATICO
 startTimer()
-const choiches = document.querySelectorAll(".choiche")
+const choiches = document.querySelectorAll(".choice")
 
 let answersGiven = []
 //Domanda corrente
