@@ -196,6 +196,14 @@ svg {
   margin-top: 2em;
 }
 
+/* Bottone risposta si illumina di rosa quando è selezionata la risposta */
+.choice.selected {
+  background-color: #ff4da6;
+  color: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 77, 166, 0.35);
+  transition: background-color 0.1s ease, color 0.1s ease, box-shadow 0.1s ease;
+}
+
 /* RESULT-PAGE */
 footer {
   margin-top: 3em;
