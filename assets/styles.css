@@ -5,7 +5,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Outfit', sans-serif;
+  font-family: "Outfit", sans-serif;
   font-optical-sizing: auto;
   font-weight: 700;
 }
@@ -19,14 +19,13 @@ strong {
   font-weight: 900;
 }
 
-
 /* WELCOME-PAGE */
 #welcome-list {
   padding-left: 1.5em;
 }
 
 body {
-  font-family: 'Outfit', sans-serif;
+  font-family: "Outfit", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -58,7 +57,7 @@ body {
 }
 
 p {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -123,7 +122,6 @@ svg {
 #more-info-btn:hover {
   box-shadow: 1px 1px 59px -1px rgba(0, 255, 255, 1);
 }
-
 
 /* BENCHMARK-PAGE */
 .question {
@@ -192,7 +190,6 @@ svg {
   text-align: right;
 }
 
-
 /* RESULT-PAGE */
 footer {
   margin-top: 3em;
@@ -206,7 +203,6 @@ footer {
 #results-title h1 {
   margin: 0;
 }
-
 
 /* FEEDBACK-PAGE */
 .center-block {
