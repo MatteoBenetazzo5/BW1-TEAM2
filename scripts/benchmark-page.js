@@ -141,6 +141,7 @@ proxBtn.addEventListener('click', () => {
 
 // mostra la prima domanda all’avvio
 cicleQuestion(currentIndex);
+
 // 1) RIFERIMENTI E BASE SU CUI LAVORARE IN JS CON IL BENCHMARK
 const titoloDomanda = document.querySelector("#one .question h2"); // l'<h2> della domanda corrente
 const pulsanti = Array.from(document.querySelectorAll("#one .answers .choice")); // i 4 bottoni (corretto il selettore)
