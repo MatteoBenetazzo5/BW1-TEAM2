@@ -143,11 +143,11 @@ proxBtn.addEventListener('click', () => {
 cicleQuestion(currentIndex);
 
 // 1) RIFERIMENTI E BASE SU CUI LAVORARE IN JS CON IL BENCHMARK
-const titoloDomanda = document.querySelector("#one .question h2"); // l'<h2> della domanda corrente
-const pulsanti = Array.from(document.querySelectorAll("#one .answers .choice")); // i 4 bottoni (corretto il selettore)
-const bottoneInvia = document.querySelector("#prox-btn"); // il pulsante per passare alla domanda successiva
-const timerCanvas = document.querySelector("#timer"); // il Canvas del timer
-const ctx = timerCanvas.getContext("2d"); // pannello 2D del timer fatto con Canvas
+const titoloDomanda = document.querySelector('#one .question h2'); // l'<h2> della domanda corrente
+const pulsanti = Array.from(document.querySelectorAll('#one .answers .choice')); // i 4 bottoni (corretto il selettore)
+const bottoneInvia = document.querySelector('#prox-btn'); // il pulsante per passare alla domanda successiva
+const timerCanvas = document.querySelector('#timer'); // il Canvas del timer
+const ctx = timerCanvas.getContext('2d'); // pannello 2D del timer fatto con Canvas
 
 // Stato del benchmark
 let indice = 0; // quale domanda sto mostrando (0 = la prima domanda)
@@ -160,16 +160,15 @@ const TEMPO_MAX = 30;
 let tempoRimasto = TEMPO_MAX;
 let idTimer = null;
 
-
 // SEZIONE TIMER
 // 1) IMPOSTAZIONE GRAFICA DEL TIMER (aspetto e posizione)
-const header = document.querySelector("#bnc-header"); // header per posizionare il timer
-header.style.position = "relative"; // serve per posizionare assolutamente il canvas
-timerCanvas.style.position = "absolute";
-timerCanvas.style.top = "20px";
-timerCanvas.style.right = "24px";
-timerCanvas.style.width = "100px";  // diametro visivo del timer
-timerCanvas.style.height = "100px";
+const header = document.querySelector('#bnc-header'); // header per posizionare il timer
+header.style.position = 'relative'; // serve per posizionare assolutamente il canvas
+timerCanvas.style.position = 'absolute';
+timerCanvas.style.top = '20px';
+timerCanvas.style.right = '24px';
+timerCanvas.style.width = '100px'; // diametro visivo del timer
+timerCanvas.style.height = '100px';
 
 // pixel ratio per schermo nitido
 const DPR = window.devicePixelRatio || 1;
@@ -179,19 +178,18 @@ timerCanvas.height = CSS_SIZE * DPR;
 ctx.scale(DPR, DPR); // adatta le coordinate grafiche
 
 // colori e stili del timer
-const COLOR_RING = "#00ffff";                // ciano acceso
-const COLOR_TRACK = "rgba(255,255,255,0.25)";// anello grigio chiaro
-const COLOR_TEXT = "#ffffff";                // bianco
-const SHADOW = "rgba(0,255,255,0.35)";       // bagliore leggero azzurro
+const COLOR_RING = '#00ffff'; // ciano acceso
+const COLOR_TRACK = 'rgba(255,255,255,0.25)'; // anello grigio chiaro
+const COLOR_TEXT = '#ffffff'; // bianco
+const SHADOW = 'rgba(0,255,255,0.35)'; // bagliore leggero azzurro
 
 // parametri geometrici del cerchio
 const size = CSS_SIZE;
 const cx = size / 2;
 const cy = size / 2;
-const radius = 42;  // raggio dell’anello
+const radius = 42; // raggio dell’anello
 const thickness = 10; // spessore dell’anello
 const startAngle = -Math.PI / 2; // parte dall’alto
-
 
 // 2) FUNZIONE CHE DISEGNA IL TIMER OGNI SECONDO
 function disegnaTimer(sec) {
@@ -207,7 +205,7 @@ function disegnaTimer(sec) {
   ctx.beginPath();
   ctx.lineWidth = thickness;
   ctx.strokeStyle = COLOR_TRACK;
-  ctx.lineCap = "round";
+  ctx.lineCap = 'round';
   ctx.arc(cx, cy, radius, 0, Math.PI * 2);
   ctx.stroke();
 
@@ -222,10 +220,10 @@ function disegnaTimer(sec) {
 
   // testo “SECONDS” sopra
   ctx.fillStyle = COLOR_TEXT;
-  ctx.textAlign = "center";
+  ctx.textAlign = 'center';
   ctx.globalAlpha = 0.9;
   ctx.font = '700 9px "Outfit", sans-serif';
-  ctx.fillText("SECONDS", cx, cy - 20);
+  ctx.fillText('SECONDS', cx, cy - 20);
 
   // numero grande centrale
   ctx.globalAlpha = 1;
@@ -235,7 +233,7 @@ function disegnaTimer(sec) {
   // testo “REMAINING” sotto
   ctx.globalAlpha = 0.8;
   ctx.font = '700 9px "Outfit", sans-serif';
-  ctx.fillText("REMAINING", cx, cy + 22);
+  ctx.fillText('REMAINING', cx, cy + 22);
 }
 
 // 3) FUNZIONI PER GESTIRE IL TIMER (start, stop, reset)
@@ -251,12 +249,12 @@ function startTimer() {
 
       // quando il tempo finisce, passa alla prossima domanda
       if (indice < domande.length - 1) {
-        indice = indice + 1;        // vai alla prossima
-        mostraDomanda(indice);      // cambia i testi e resetta timer
+        indice = indice + 1; // vai alla prossima
+        mostraDomanda(indice); // cambia i testi e resetta timer
       } else {
         // se era l'ultima domanda → vai alla pagina risultati
         salvaPerRisultati();
-        window.location.href = "./results-page.html";
+        window.location.href = './results-page.html';
       }
     }
     disegnaTimer(tempoRimasto);
@@ -277,21 +275,21 @@ function stopTimer() {
 
 // 4) AVVIO DEL TIMER AUTOMATICO
 startTimer();
-const choiches = document.querySelectorAll(".choiche");
+const choiches = document.querySelectorAll('.choiche');
 
 let answersGiven = [];
 //Domanda corrente
 let currentQuestion = 1;
 // add listener per bottone
 choiches.forEach((button) => {
-  button.addEventListener("click", (event) => {
+  button.addEventListener('click', (event) => {
     const selected = event.target;
-    const questionSection = selected.closest("section");
+    const questionSection = selected.closest('section');
     const questionId = questionSection
       ? questionSection.id
       : `question-${currentQuestion}`;
     // Verifica risposte
-    const isCorrect = selected.dataset.correct === "true";
+    const isCorrect = selected.dataset.correct === 'true';
     const answerText = selected.textContent.trim();
 
     const answerObj = {
@@ -307,10 +305,10 @@ choiches.forEach((button) => {
     } else {
       answersGiven.push(answerObj);
     }
-    localStorage.setItem("userAnswers", JSON.stringify(answersGiven));
+    localStorage.setItem('userAnswers', JSON.stringify(answersGiven));
     console.log(answersGiven);
-    const allButtons = questionSection.querySelectorAll(".choice");
-    allButtons.forEach((btn) => btn.classList.remove("selected"));
-    selected.classList.add("selected");
+    const allButtons = questionSection.querySelectorAll('.choice');
+    allButtons.forEach((btn) => btn.classList.remove('selected'));
+    selected.classList.add('selected');
   });
 });
