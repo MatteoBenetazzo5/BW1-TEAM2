@@ -26,7 +26,7 @@ document.getElementById("wrong-count").innerHTML = `
 
 // Definisci il messaggio finale come array di righe
 const messageLines =
-  correctAnswers >= totalQuestions / 2
+  correctAnswers > totalQuestions / 2
     ? [
         "Congratulations!",
         "You passed the exam! You'll receive the certificate shortly.",
