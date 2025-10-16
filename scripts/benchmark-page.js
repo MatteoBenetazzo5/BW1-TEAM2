@@ -129,24 +129,43 @@ const updateCounter = function () {
     '</span>';
 };
 
+const saveCorrectAnswer = (selectedAnswerIndex) => {
+  questions[currentQuestionIndex].selectedAnswerIndex = selectedAnswerIndex;
+  let totCorrectAnswers = 0;
+
+  questions.forEach((currentQ) => {
+    const isCorrect = currentQ.answers[selectedAnswerIndex].correct;
+    if (isCorrect !== undefined) {
+      if (isCorrect === true) {
+        totCorrectAnswers += 1;
+      }
+    }
+  });
+  return totCorrectAnswers;
+};
+
 function iterateQuestion() {
   const q = questions[currentQuestionIndex];
 
-  // costruisco l'HTML come stringa e lo inietto nel container
+  // costruisco l'HTML come stringa e lo applico al container
   let html = `<section id="q${currentQuestionIndex + 1}">`;
   html += `<div class="question"><h2>${q.question}</h2></div>`;
   html += `<div class="answers">`;
   q.answers.forEach((ans, ansIndex) => {
-    html += `<button type="button" class="choice" data-index="${ansIndex}" onClick="saveSelectedAnswer(${ansIndex})">${ans.choice}</button>`;
+    html += `<button type="button" class="choice" data-index="${ansIndex}" onClick="saveCorrectAnswer(${ansIndex})">${ans.choice}</button>`;
   });
   html += `</div>`;
   html += `</section>`;
 
   quizContainer.innerHTML = html;
 
-  // se siamo all’ultima domanda, cambiamo il testo del pulsante o lo nascondiamo
+  // se siamo all’ultima domanda, cambiamo il testo del pulsante
   if (currentQuestionIndex === questions.length - 1) {
     nextButton.innerText = 'INVIA';
+    // qui inserirei l'event listener per mandare i dati al results
+    nextButton.addEventListener('click', () => {
+      localStorage.setItem('userAnswers', JSON.stringify(totCorrectAnswers));
+    });
   }
 
   updateCounter();
@@ -162,7 +181,6 @@ nextButton.addEventListener('click', () => {
     resetTimer();
     startTimer();
   } else {
-    // ultima domanda: qui potresti raccogliere risposte e mostrare i risultati
     window.location.href = 'results-page.html';
   }
 });
@@ -291,7 +309,7 @@ function startTimer() {
 
 const calculateResult = () => {
   // -------codice da creare
-}
+};
 
 function resetTimer() {
   tempoRimasto = TEMPO_MAX;
@@ -308,12 +326,8 @@ function stopTimer() {
 // 4) AVVIO DEL TIMER AUTOMATICO
 startTimer();
 
-let answersGiven = [];
-
-const saveSelectedAnswer = (selectedAnswerIndex) => {
-  questions[currentQuestionIndex].selectedAnswerIndex = selectedAnswerIndex;
-  
-  /*
+/*
+  let answersGiven = [];
   const choices = document.querySelectorAll('.choice');
 
   // add listener per bottone
@@ -349,7 +363,6 @@ const saveSelectedAnswer = (selectedAnswerIndex) => {
       selected.classList.add('selected');
     });
   });*/
-};
 
 // Evidenziazione rosa: aggiunge/rimuove .selected senza cambiare la tua logica di avanzamento
 quizContainer.addEventListener('click', (e) => {
