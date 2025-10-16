@@ -1,18 +1,15 @@
 // Recupera le risposte salvate dal benchmark
-const savedAnswers = JSON.parse(localStorage.getItem("userAnswers")) || []
-console.log("Risposte salvate:", savedAnswers)
+const correctAnswers = parseInt(localStorage.getItem("totalCorrectAnswers"))
+const totalQuestions = parseInt(localStorage.getItem("totalQuestions"))
+const wrongAnswers = totalQuestions - correctAnswers
 
-// Conta quante risposte corrette e sbagliate
-const correctAnswers = savedAnswers.filter((ans) => ans.isCorrect).length
-const wrongAnswers = savedAnswers.length - correctAnswers
-const totalQuestions = savedAnswers.length
-
+let correctPercentage = 0.0;
+let wrongPercentage = 0.0;
 // Calcola le percentuali
-const correctPercentage =
-  totalQuestions > 0 ? ((correctAnswers / totalQuestions) * 100).toFixed(1) : 0
-const wrongPercentage =
-  totalQuestions > 0 ? ((wrongAnswers / totalQuestions) * 100).toFixed(1) : 0
-
+if (totalQuestions > 0) {
+  correctPercentage = ((correctAnswers / totalQuestions) * 100).toFixed(1)
+  wrongPercentage = ((wrongAnswers / totalQuestions) * 100).toFixed(1)
+}
 // Mostra i numeri e le percentuali nel testo
 document.getElementById("correct-count").innerHTML = `
   <span class="percentage">${correctPercentage}%</span><br>
@@ -136,4 +133,5 @@ new Chart(ctx, {
 })
 
 // Pulisci le risposte per nuovi tentativi
-localStorage.removeItem("userAnswers")
+localStorage.removeItem("totalCorrectAnswers")
+localStorage.removeItem("totalQuestions")

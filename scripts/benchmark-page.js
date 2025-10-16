@@ -1,8 +1,8 @@
 // RESET SOLO ALL'AVVIO
-if (!sessionStorage.getItem("quizStarted")) {
-  localStorage.removeItem("userAnswers");
-  localStorage.removeItem("quizResults");
-  sessionStorage.setItem("quizStarted", "true");
+if (!sessionStorage.getItem('quizStarted')) {
+  localStorage.removeItem('userAnswers');
+  localStorage.removeItem('quizResults');
+  sessionStorage.setItem('quizStarted', 'true');
 }
 
 // DOMANDE DEL QUIZ
@@ -130,36 +130,16 @@ const updateCounter = function () {
     '</span>';
 };
 
-// const saveCorrectAnswer = (selectedAnswerIndex) => {
-//   questions[currentQuestionIndex].selectedAnswerIndex = selectedAnswerIndex;
-
-//   let totCorrectAnswers = 0;
-
-//   questions.forEach((currentQ) => {
-//     if (currentQ.selectedAnswerIndex !== undefined) {
-//       const isCorrect = currentQ.answers[currentQ.selectedAnswerIndex];
-//       if (selected && selected.correct) {
-//         totCorrectAnswers++;
-//       }
-//     }
-//   });
-
-//   // lo salvo su storage:
-
-//   return totCorrectAnswers;
-// };
-
 const saveUserAnswer = (selectedAnswerIndex) => {
   questions[currentQuestionIndex].selectedAnswerIndex = selectedAnswerIndex;
-
 };
 
 const checkAllCorrectAnswers = () => {
-   let totCorrectAnswers = 0;
+  let totCorrectAnswers = 0;
 
   questions.forEach((currentQ) => {
     if (currentQ.selectedAnswerIndex !== undefined) {
-      let selected = currentQ.selectedAnswerIndex
+      let selected = currentQ.selectedAnswerIndex;
       const isCorrect = currentQ.answers[selected].correct;
 
       if (isCorrect === true) {
@@ -168,9 +148,10 @@ const checkAllCorrectAnswers = () => {
     }
   });
   //qui voglio salvare in local storage
-  localStorage.setItem('totCorrectAnswers', totCorrectAnswers);
+  localStorage.setItem('totalCorrectAnswers', totCorrectAnswers);
+  localStorage.setItem('totalQuestions', questions.length);
   return totCorrectAnswers;
-}
+};
 
 function iterateQuestion() {
   const q = questions[currentQuestionIndex];
@@ -283,16 +264,16 @@ function disegnaTimer(sec) {
   ctx.restore();
 
   ctx.fillStyle = COLOR_TEXT;
-  ctx.textAlign = "center";
+  ctx.textAlign = 'center';
   ctx.globalAlpha = 0.9;
   ctx.font = '700 9px "Outfit", sans-serif';
-  ctx.fillText("SECONDS", cx, cy - 20);
+  ctx.fillText('SECONDS', cx, cy - 20);
   ctx.globalAlpha = 1;
   ctx.font = '700 26px "Outfit", sans-serif';
   ctx.fillText(String(sec), cx, cy + 2);
   ctx.globalAlpha = 0.8;
   ctx.font = '700 9px "Outfit", sans-serif';
-  ctx.fillText("REMAINING", cx, cy + 22);
+  ctx.fillText('REMAINING', cx, cy + 22);
 }
 
 function startTimer() {
@@ -305,11 +286,11 @@ function startTimer() {
       stopTimer();
       if (currentIndex < questions.length - 1) {
         currentIndex++;
-        cicleQuestion(currentIndex);
+        iterateQuestion(currentQuestionIndex);
         resetTimer();
         startTimer();
       } else {
-        window.location.href = "results-page.html";
+        window.location.href = 'results-page.html';
       }
     }
     disegnaTimer(tempoRimasto);
@@ -330,3 +311,17 @@ function stopTimer() {
 }
 
 startTimer();
+
+// Evidenziazione rosa: aggiunge/rimuove .selected senza cambiare la tua logica di avanzamento
+quizContainer.addEventListener('click', (e) => {
+  const btn = e.target.closest('.choice');
+  if (!btn) return;
+
+  const section = btn.closest('section');
+  if (section) {
+    section
+      .querySelectorAll('.choice')
+      .forEach((b) => b.classList.remove('selected'));
+  }
+  btn.classList.add('selected');
+});
