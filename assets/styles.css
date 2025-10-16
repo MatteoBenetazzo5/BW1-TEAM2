@@ -273,3 +273,58 @@ canvas {
   border-color: #00f5ff;
   font-weight: bold;
 }
+
+
+/* ============================
+   RESULT PAGE - CORRECT & WRONG
+   (Stile aggiuntivo, non modificare sopra)
+   ============================ */
+
+.div-side h2 {
+  font-size: 45px;
+  font-weight: 500;
+  margin-bottom: 0.3em;
+}
+
+#correct-count,
+#wrong-count {
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  line-height: 1.2em;
+}
+
+#correct-count .percentage,
+#wrong-count .percentage {
+  display: block;
+  font-family: "Outfit", sans-serif;
+  font-weight: 900;
+  font-size: 55px;
+  margin-bottom: 0.1em;
+}
+
+#correct-count .percentage {
+  color: #00ffff;
+}
+
+#wrong-count .percentage {
+  color: #d20094;
+}
+
+.div-side {
+  min-width: 250px;
+}
+
+.center-block {
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .div-side h2 {
+    font-size: 35px;
+  }
+
+  #correct-count .percentage,
+  #wrong-count .percentage {
+    font-size: 42px;
+  }
+}
