@@ -194,7 +194,7 @@ function iterateQuestion() {
 
   updateCounter();
 }
-cicleQuestion(currentIndex);
+iterateQuestion(currentQuestionIndex);
 
 //fino alla fine delle domande clicco il bottone
 nextButton.addEventListener('click', () => {
