@@ -1,11 +1,11 @@
-// 🔹 RESET SOLO ALL'AVVIO
+// RESET SOLO ALL'AVVIO
 if (!sessionStorage.getItem("quizStarted")) {
   localStorage.removeItem("userAnswers");
   localStorage.removeItem("quizResults");
   sessionStorage.setItem("quizStarted", "true");
 }
 
-// 🔹 DOMANDE DEL QUIZ
+// DOMANDE DEL QUIZ
 const questions = [
   {
     question: `Chi ha diretto <strong>“Inception”?</strong>`,
