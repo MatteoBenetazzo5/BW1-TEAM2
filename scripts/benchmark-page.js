@@ -1,6 +1,13 @@
+// 🔹 RESET SOLO ALL'AVVIO
+if (!sessionStorage.getItem("quizStarted")) {
+  localStorage.removeItem("userAnswers");
+  localStorage.removeItem("quizResults");
+  sessionStorage.setItem("quizStarted", "true");
+}
+
+// 🔹 DOMANDE DEL QUIZ
 const questions = [
   {
-    //         <!-- DOMANDA 1 -->
     question: `Chi ha diretto <strong>“Inception”?</strong>`,
     selectedAnswerIndex: undefined,
     answers: [
@@ -11,7 +18,6 @@ const questions = [
     ],
   },
   {
-    //         <!-- DOMANDA 2 -->
     question: `In quale anno è uscito “Titanic”?`,
     selectedAnswerIndex: undefined,
     answers: [
@@ -22,7 +28,6 @@ const questions = [
     ],
   },
   {
-    //         <!-- DOMANDA 3 -->
     question: `Quale attore interpreta Jack Sparrow?`,
     selectedAnswerIndex: undefined,
     answers: [
@@ -32,7 +37,6 @@ const questions = [
       { choice: 'Robert Downey Jr.', correct: false },
     ],
   },
-
   {
     //         <!-- DOMANDA 4 -->
     question: 'Qual è il vero nome di “Neo” in Matrix?',
@@ -44,7 +48,6 @@ const questions = [
       { choice: 'Paul Atreides', correct: false },
     ],
   },
-
   {
     //         <!-- DOMANDA 5 -->
     question: 'Quanti film compongono la trilogia originale di Star Wars?',
@@ -88,7 +91,6 @@ const questions = [
     ],
   },
   {
-    //         <!-- DOMANDA 9 -->
     question:
       'Ne “Il Signore degli Anelli”, come si chiama la terra degli Hobbit?',
     selectedAnswerIndex: undefined,
@@ -100,7 +102,6 @@ const questions = [
     ],
   },
   {
-    //         <!-- DOMANDA 10 -->
     question:
       'La Vedova Nera nel Marvel Cinematic Universe viene interpretata da Scarlett Johansson',
     selectedAnswerIndex: undefined,
@@ -193,6 +194,7 @@ function iterateQuestion() {
 
   updateCounter();
 }
+cicleQuestion(currentIndex);
 
 //fino alla fine delle domande clicco il bottone
 nextButton.addEventListener('click', () => {
@@ -261,26 +263,18 @@ const radius = 42; // raggio dell’anello
 const thickness = 10; // spessore dell’anello
 const startAngle = -Math.PI / 2; // parte dall’alto
 
-// 2) FUNZIONE CHE DISEGNA IL TIMER OGNI SECONDO
 function disegnaTimer(sec) {
-  // pulizia area del canvas (trasparente → si vede lo sfondo pagina dietro)
   ctx.clearRect(0, 0, size, size);
-
-  // bagliore attorno
   ctx.save();
   ctx.shadowColor = SHADOW;
   ctx.shadowBlur = 12;
-
-  // cerchio di sfondo (track)
   ctx.beginPath();
   ctx.lineWidth = thickness;
   ctx.strokeStyle = COLOR_TRACK;
-  ctx.lineCap = 'round';
   ctx.arc(cx, cy, radius, 0, Math.PI * 2);
   ctx.stroke();
 
-  // cerchio principale (riempimento progressivo)
-  const progress = Math.max(sec, 0) / TEMPO_MAX; // da 1 a 0
+  const progress = Math.max(sec, 0) / TEMPO_MAX;
   const endAngle = startAngle + progress * Math.PI * 2;
   ctx.beginPath();
   ctx.strokeStyle = COLOR_RING;
@@ -288,45 +282,35 @@ function disegnaTimer(sec) {
   ctx.stroke();
   ctx.restore();
 
-  // testo “SECONDS” sopra
   ctx.fillStyle = COLOR_TEXT;
-  ctx.textAlign = 'center';
+  ctx.textAlign = "center";
   ctx.globalAlpha = 0.9;
   ctx.font = '700 9px "Outfit", sans-serif';
-  ctx.fillText('SECONDS', cx, cy - 20);
-
-  // numero grande centrale
+  ctx.fillText("SECONDS", cx, cy - 20);
   ctx.globalAlpha = 1;
   ctx.font = '700 26px "Outfit", sans-serif';
   ctx.fillText(String(sec), cx, cy + 2);
-
-  // testo “REMAINING” sotto
   ctx.globalAlpha = 0.8;
   ctx.font = '700 9px "Outfit", sans-serif';
-  ctx.fillText('REMAINING', cx, cy + 22);
+  ctx.fillText("REMAINING", cx, cy + 22);
 }
 
-// 3) FUNZIONI PER GESTIRE IL TIMER (start, stop, reset)
 function startTimer() {
-  disegnaTimer(tempoRimasto); // prima immagine (30s)
+  disegnaTimer(tempoRimasto);
   clearInterval(idTimer);
   idTimer = setInterval(function () {
-    tempoRimasto = tempoRimasto - 1;
-
+    tempoRimasto--;
     if (tempoRimasto < 0) {
       tempoRimasto = 0;
       stopTimer();
-
-      // quando il tempo finisce, passa alla prossima domanda
-      if (currentQuestionIndex < questions.length - 1) {
-        currentQuestionIndex = currentQuestionIndex + 1; // vai alla prossima
-        iterateQuestion(currentQuestionIndex); // cambia i testi e resetta timer
+      if (currentIndex < questions.length - 1) {
+        currentIndex++;
+        cicleQuestion(currentIndex);
+        resetTimer();
+        startTimer();
       } else {
-        // se era l'ultima domanda → vai alla pagina risultati
-        calculateResult();
-        window.location.href = './results-page.html';
+        window.location.href = "results-page.html";
       }
-      return
     }
     disegnaTimer(tempoRimasto);
   }, 1000);
@@ -342,63 +326,7 @@ function resetTimer() {
 }
 
 function stopTimer() {
-  if (idTimer) {
-    clearInterval(idTimer);
-    idTimer = null;
-  }
+  if (idTimer) clearInterval(idTimer);
 }
 
-// 4) AVVIO DEL TIMER AUTOMATICO
 startTimer();
-
-/*
-  let answersGiven = [];
-  const choices = document.querySelectorAll('.choice');
-
-  // add listener per bottone
-  choices.forEach((button) => {
-    button.addEventListener('click', (event) => {
-      const selected = event.target;
-      const questionSection = selected.closest('section');
-      const questionId = questionSection
-        ? questionSection.id
-        : `question-${currentQuestionIndex}`;
-      // Verifica risposte
-      const isCorrect = selected.dataset.correct === 'true';
-      const answerText = selected.textContent.trim();
-
-      const answerObj = {
-        questionId,
-        answerText,
-        isCorrect,
-      };
-      const existingIndex = answersGiven.findIndex(
-        (ans) => ans.questionId === questionId
-      );
-      if (existingIndex !== -1) {
-        answersGiven[existingIndex] = answerObj;
-      } else {
-        answersGiven.push(answerObj);
-      }
-
-      localStorage.setItem('userAnswers', JSON.stringify(answersGiven));
-      console.log(answersGiven);
-      const allButtons = questionSection.querySelectorAll('.choice');
-      allButtons.forEach((btn) => btn.classList.remove('selected'));
-      selected.classList.add('selected');
-    });
-  });*/
-
-// Evidenziazione rosa: aggiunge/rimuove .selected senza cambiare la tua logica di avanzamento
-quizContainer.addEventListener('click', (e) => {
-  const btn = e.target.closest('.choice');
-  if (!btn) return;
-
-  const section = btn.closest('section');
-  if (section) {
-    section
-      .querySelectorAll('.choice')
-      .forEach((b) => b.classList.remove('selected'));
-  }
-  btn.classList.add('selected');
-});
