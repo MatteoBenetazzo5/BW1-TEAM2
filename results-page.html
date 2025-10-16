@@ -7,23 +7,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit&display=swap"
-      rel="stylesheet" />
-    <title>Document</title>
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Outfit:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Results</title>
   </head>
-  <body id="">
+
+  <body>
     <header>
       <img class="logo" src="./img/epicode_logo.png" alt="Epicode Logo" />
     </header>
+
     <div id="results-title">
       <h1>Results</h1>
-      <p class="">The summary of your answers:</p>
+      <p>The summary of your answers:</p>
     </div>
+
     <div class="center-block">
       <div class="div-side">
         <h2>Correct</h2>
-        <p class=""></p>
-        <p></p>
+        <p id="correct-count">0</p>
       </div>
 
       <div class="div-center">
@@ -33,20 +36,17 @@
 
       <div class="div-side">
         <h2>Wrong</h2>
-        <p class=""></p>
-        <p></p>
+        <p id="wrong-count">0</p>
       </div>
     </div>
+
     <div id="rate-btn-div">
-      <a href="./feedback-page.html"
-        ><button id="rate-us-btn" class="">RATE US</button></a
-      >
+      <a href="./feedback-page.html">
+        <button id="rate-us-btn">RATE US</button>
+      </a>
     </div>
 
-    <!-- 🔹 AGGIUNTA FONDAMENTALE -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- 🔹 FINE AGGIUNTA -->
-
     <script src="./scripts/results-page.js"></script>
   </body>
 </html>
