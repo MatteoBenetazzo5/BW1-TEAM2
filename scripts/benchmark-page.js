@@ -129,20 +129,47 @@ const updateCounter = function () {
     '</span>';
 };
 
-const saveCorrectAnswer = (selectedAnswerIndex) => {
+// const saveCorrectAnswer = (selectedAnswerIndex) => {
+//   questions[currentQuestionIndex].selectedAnswerIndex = selectedAnswerIndex;
+
+//   let totCorrectAnswers = 0;
+
+//   questions.forEach((currentQ) => {
+//     if (currentQ.selectedAnswerIndex !== undefined) {
+//       const isCorrect = currentQ.answers[currentQ.selectedAnswerIndex];
+//       if (selected && selected.correct) {
+//         totCorrectAnswers++;
+//       }
+//     }
+//   });
+
+//   // lo salvo su storage:
+
+//   return totCorrectAnswers;
+// };
+
+const saveUserAnswer = (selectedAnswerIndex) => {
   questions[currentQuestionIndex].selectedAnswerIndex = selectedAnswerIndex;
-  let totCorrectAnswers = 0;
+
+};
+
+const checkAllCorrectAnswers = () => {
+   let totCorrectAnswers = 0;
 
   questions.forEach((currentQ) => {
-    const isCorrect = currentQ.answers[selectedAnswerIndex].correct;
-    if (isCorrect !== undefined) {
+    if (currentQ.selectedAnswerIndex !== undefined) {
+      let selected = currentQ.selectedAnswerIndex
+      const isCorrect = currentQ.answers[selected].correct;
+
       if (isCorrect === true) {
         totCorrectAnswers += 1;
       }
     }
   });
+  //qui voglio salvare in local storage
+  localStorage.setItem('totCorrectAnswers', totCorrectAnswers);
   return totCorrectAnswers;
-};
+}
 
 function iterateQuestion() {
   const q = questions[currentQuestionIndex];
@@ -152,7 +179,7 @@ function iterateQuestion() {
   html += `<div class="question"><h2>${q.question}</h2></div>`;
   html += `<div class="answers">`;
   q.answers.forEach((ans, ansIndex) => {
-    html += `<button type="button" class="choice" data-index="${ansIndex}" onClick="saveCorrectAnswer(${ansIndex})">${ans.choice}</button>`;
+    html += `<button type="button" class="choice" data-index="${ansIndex}" onClick="saveUserAnswer(${ansIndex})">${ans.choice}</button>`;
   });
   html += `</div>`;
   html += `</section>`;
@@ -162,10 +189,6 @@ function iterateQuestion() {
   // se siamo all’ultima domanda, cambiamo il testo del pulsante
   if (currentQuestionIndex === questions.length - 1) {
     nextButton.innerText = 'INVIA';
-    // qui inserirei l'event listener per mandare i dati al results
-    nextButton.addEventListener('click', () => {
-      localStorage.setItem('userAnswers', JSON.stringify(totCorrectAnswers));
-    });
   }
 
   updateCounter();
@@ -181,6 +204,7 @@ nextButton.addEventListener('click', () => {
     resetTimer();
     startTimer();
   } else {
+    checkAllCorrectAnswers();
     window.location.href = 'results-page.html';
   }
 });
