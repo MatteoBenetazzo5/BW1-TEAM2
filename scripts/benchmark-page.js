@@ -267,15 +267,18 @@ function startTimer() {
       stopTimer()
 
       // quando il tempo finisce, passa alla prossima domanda
-      if (indice < domande.length - 1) {
-        indice = indice + 1 // vai alla prossima
-        mostraDomanda(indice) // cambia i testi e resetta timer
+      if (currentIndex < questions.length - 1) {
+        currentIndex = currentIndex + 1
+        cicleQuestion(currentIndex)   // mostra la prossima
+        resetTimer()                  // azzera il timer
+        startTimer()                  // riparte il conto
       } else {
         // se era l'ultima domanda → vai alla pagina risultati
-        salvaPerRisultati()
-        window.location.href = "./results-page.html"
+        window.location.href = "results-page.html"
       }
+      return
     }
+
     disegnaTimer(tempoRimasto)
   }, 1000)
 }
