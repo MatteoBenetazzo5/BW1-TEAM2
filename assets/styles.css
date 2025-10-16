@@ -5,7 +5,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Outfit", sans-serif;
+  font-family: 'Outfit', sans-serif;
   font-optical-sizing: auto;
   font-weight: 700;
 }
@@ -25,7 +25,7 @@ strong {
 }
 
 body {
-  font-family: "Outfit", sans-serif;
+  font-family: 'Outfit', sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -40,11 +40,13 @@ body {
 }
 
 .body-wlcm {
+  height: 100%;
   text-align: left;
   padding: 5em;
 }
 
 .body-bnc {
+  height: 100%;
   padding: 0.5em;
 }
 
@@ -55,12 +57,12 @@ body {
 
 .container {
   max-width: 600px;
-  margin: 50px auto;
-  padding: 20px;
+      margin: 1.5em auto;
+    padding: 1.5em;
 }
 
 p {
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -69,7 +71,7 @@ p {
 .logo {
   display: inline-block;
   text-align: left;
-  width: 20%;
+  width: 10%;
   margin-top: 2em;
   margin-bottom: 2em;
   height: 10%;
@@ -133,19 +135,14 @@ svg {
   font-size: 1.2em;
 }
 
-.answers {
-  text-align: center;
-  list-style-type: none;
-}
-
 .tot-question {
   text-align: center;
-  font-size: 0.7em;
+  font-size: 1em;
 }
 
-.answers li {
+/* .answers li {
   display: inline-block;
-}
+} */
 
 .answers {
   display: grid;
@@ -153,15 +150,18 @@ svg {
   gap: 10px;
   width: 80%;
   margin: 0 auto;
+  text-align: center;
+  list-style-type: none;
 }
 
 .answers button {
-  padding: 1em;
+  padding: 0.5em;
   color: white;
   border-radius: 25px;
   background: rgba(255, 255, 255, 0.2);
   border: solid white;
   border-bottom: rgba(255, 255, 255, 0.3);
+  margin: 0.3em;
 }
 
 .bnc-btn {
@@ -176,6 +176,7 @@ svg {
   padding: 0.4em 2em;
   color: white;
   border-radius: 20px;
+  font-size: 0.9em;
 }
 
 #rate-btn-div {
@@ -194,6 +195,14 @@ svg {
   width: 140px;
   height: 40px;
   margin-top: 2em;
+}
+
+#quiz {
+  min-height: 230px;
+}
+
+.choice {
+  font-size: 1em;
 }
 
 /* Bottone risposta si illumina di rosa quando è selezionata la risposta */
@@ -274,7 +283,6 @@ canvas {
   font-weight: bold;
 }
 
-
 /* ============================
    RESULT PAGE - CORRECT & WRONG
    (Stile aggiuntivo, non modificare sopra)
@@ -288,7 +296,7 @@ canvas {
 
 #correct-count,
 #wrong-count {
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 18px;
   line-height: 1.2em;
 }
@@ -296,7 +304,7 @@ canvas {
 #correct-count .percentage,
 #wrong-count .percentage {
   display: block;
-  font-family: "Outfit", sans-serif;
+  font-family: 'Outfit', sans-serif;
   font-weight: 900;
   font-size: 55px;
   margin-bottom: 0.1em;
