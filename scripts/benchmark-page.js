@@ -284,22 +284,21 @@ function startTimer() {
     if (tempoRimasto < 0) {
       tempoRimasto = 0;
       stopTimer();
-      if (currentIndex < questions.length - 1) {
-        currentIndex++;
-        iterateQuestion(currentQuestionIndex);
-        resetTimer();
-        startTimer();
+      // quando il tempo finisce, passa alla prossima domanda
+      if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex = currentQuestionIndex + 1;
+        iterateQuestion(currentQuestionIndex); // mostra la prossima
+        resetTimer(); // azzera il timer
+        startTimer(); // riparte il conto
       } else {
+        // se era l'ultima domanda → vai alla pagina risultati
         window.location.href = 'results-page.html';
       }
+      return;
     }
     disegnaTimer(tempoRimasto);
   }, 1000);
 }
-
-const calculateResult = () => {
-  // -------codice da creare
-};
 
 function resetTimer() {
   tempoRimasto = TEMPO_MAX;
