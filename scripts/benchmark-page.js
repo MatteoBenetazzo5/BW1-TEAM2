@@ -326,6 +326,7 @@ function startTimer() {
         calculateResult();
         window.location.href = './results-page.html';
       }
+      return
     }
     disegnaTimer(tempoRimasto);
   }, 1000);
