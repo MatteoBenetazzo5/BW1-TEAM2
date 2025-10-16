@@ -57,8 +57,8 @@ new Chart(ctx, {
 // Mostra il messaggio finale
 const message =
   correctAnswers >= totalQuestions / 2
-    ? "🎉 You passed the exam! You'll receive the certificate shortly."
-    : "❌ Unfortunately, you didn't pass. Try again after reviewing the material.";
+    ? " You passed the exam! You'll receive the certificate shortly."
+    : " Unfortunately, you didn't pass. Try again after reviewing the material.";
 
 document.getElementById("message").innerText = message;
 
