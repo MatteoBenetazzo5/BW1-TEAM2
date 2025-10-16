@@ -1,3 +1,14 @@
+<<<<<<< Updated upstream
+=======
+// 🔹 RESET SOLO ALL'AVVIO
+if (!sessionStorage.getItem("quizStarted")) {
+  localStorage.removeItem("userAnswers")
+  localStorage.removeItem("quizResults")
+  sessionStorage.setItem("quizStarted", "true")
+}
+
+// 🔹 DOMANDE DEL QUIZ
+>>>>>>> Stashed changes
 const questions = [
   {
     //         <!-- DOMANDA 1 -->
@@ -101,6 +112,7 @@ const questions = [
   },
 ]
 
+<<<<<<< Updated upstream
 let currentIndex = 0
 const proxBtn = document.getElementById("prox-btn")
 const quizContainer = document.getElementById("quiz")
@@ -117,10 +129,23 @@ const updateCounter = function () {
     "/" +
     totaleDomande +
     "</span>"
+=======
+// 🔹 ELEMENTI BASE
+let currentIndex = 0
+const proxBtn = document.getElementById("prox-btn")
+const quizContainer = document.getElementById("quiz")
+const counterElement = document.querySelector(".tot-question p")
+
+function updateCounter() {
+  counterElement.innerHTML = `QUESTION <span class='pink'>${currentIndex + 1}/${
+    questions.length
+  }</span>`
+>>>>>>> Stashed changes
 }
 
 function cicleQuestion(index) {
   const q = questions[index]
+<<<<<<< Updated upstream
 
   // costruisco l'HTML come stringa e lo inietto nel container
   let html = `<section id="q${index + 1}">`
@@ -142,9 +167,62 @@ function cicleQuestion(index) {
 
   updateCounter()
 }
+=======
+  let html = `<section id="q${index + 1}">
+    <div class="question"><h2>${q.question}</h2></div>
+    <div class="answers">
+      ${q.answers
+        .map(
+          (ans) =>
+            `<button type="button" class="choice" ${
+              ans.correct ? 'data-correct="true"' : ""
+            }>${ans.choice}</button>`
+        )
+        .join("")}
+    </div>
+  </section>`
+
+  quizContainer.innerHTML = html
+  proxBtn.innerText = index === questions.length - 1 ? "INVIA" : "PROSSIMA"
+  updateCounter()
+}
+cicleQuestion(currentIndex)
+
+// 🔹 SALVATAGGIO RISPOSTE
+let answersGiven = JSON.parse(localStorage.getItem("userAnswers")) || []
+
+quizContainer.addEventListener("click", (e) => {
+  const btn = e.target.closest(".choice")
+  if (!btn) return
+
+  const section = btn.closest("section")
+  section
+    .querySelectorAll(".choice")
+    .forEach((b) => b.classList.remove("selected"))
+  btn.classList.add("selected")
+
+  const questionId = section.id
+  const answerText = btn.textContent.trim()
+  const isCorrect = btn.dataset.correct === "true"
+
+  const answerObj = { questionId, answerText, isCorrect }
+
+  const existingIndex = answersGiven.findIndex(
+    (a) => a.questionId === questionId
+  )
+  if (existingIndex !== -1) {
+    answersGiven[existingIndex] = answerObj
+  } else {
+    answersGiven.push(answerObj)
+  }
+
+  localStorage.setItem("userAnswers", JSON.stringify(answersGiven))
+})
+>>>>>>> Stashed changes
 
 //fino alla fine delle domande clicco il bottone
 proxBtn.addEventListener("click", () => {
+<<<<<<< Updated upstream
   if (currentIndex < questions.length - 1) {
     currentIndex += 1
     cicleQuestion(currentIndex)
@@ -154,10 +232,43 @@ proxBtn.addEventListener("click", () => {
     startTimer()
   } else {
     // ultima domanda: qui potresti raccogliere risposte e mostrare i risultati
+=======
+  const currentSection = document.querySelector(`#q${currentIndex + 1}`)
+  const selected = currentSection.querySelector(".selected")
+
+  // impedisce di andare avanti senza risposta
+  if (!selected) {
+    alert("Seleziona una risposta prima di procedere!")
+    return
+  }
+
+  if (currentIndex < questions.length - 1) {
+    currentIndex++
+    cicleQuestion(currentIndex)
+    resetTimer()
+    startTimer()
+  } else {
+    const savedAnswers = JSON.parse(localStorage.getItem("userAnswers")) || []
+    const correctCount = savedAnswers.filter((a) => a.isCorrect).length
+    const wrongCount = savedAnswers.length - correctCount
+
+    localStorage.setItem(
+      "quizResults",
+      JSON.stringify({
+        correct: correctCount,
+        wrong: wrongCount,
+        total: savedAnswers.length,
+      })
+    )
+
+    // reset del flag per consentire nuovo quiz
+    sessionStorage.removeItem("quizStarted")
+>>>>>>> Stashed changes
     window.location.href = "results-page.html"
   }
 })
 
+<<<<<<< Updated upstream
 // mostra la prima domanda all’avvio
 cicleQuestion(currentIndex)
 
@@ -173,6 +284,38 @@ let indice = 0 // quale domanda sto mostrando (0 = la prima domanda)
 let possoAndareAvanti = false // diventa vera se clicchi solo su quella giusta
 let punteggio = 0 // da usare nei risultati
 let logRisposte = [] // serve per salvare le risposte fatte, per poi poterle usare nei risultati
+=======
+// 🔹 TIMER
+const timerCanvas = document.querySelector("#timer")
+const ctx = timerCanvas.getContext("2d")
+const header = document.querySelector("#bnc-header")
+header.style.position = "relative"
+timerCanvas.style.position = "absolute"
+timerCanvas.style.top = "20px"
+timerCanvas.style.right = "24px"
+timerCanvas.style.width = "100px"
+timerCanvas.style.height = "100px"
+
+const DPR = window.devicePixelRatio || 1
+const CSS_SIZE = 100
+timerCanvas.width = CSS_SIZE * DPR
+timerCanvas.height = CSS_SIZE * DPR
+ctx.scale(DPR, DPR)
+
+const COLOR_RING = "#00ffff"
+const COLOR_TRACK = "rgba(255,255,255,0.25)"
+const COLOR_TEXT = "#ffffff"
+const SHADOW = "rgba(0,255,255,0.35)"
+const size = CSS_SIZE
+const cx = size / 2
+const cy = size / 2
+const radius = 42
+const thickness = 10
+const startAngle = -Math.PI / 2
+const TEMPO_MAX = 30
+let tempoRimasto = TEMPO_MAX
+let idTimer = null
+>>>>>>> Stashed changes
 
 // Timer di 30 sec. massimi per ogni risposta
 const TEMPO_MAX = 30
@@ -212,6 +355,7 @@ const startAngle = -Math.PI / 2 // parte dall’alto
 
 // 2) FUNZIONE CHE DISEGNA IL TIMER OGNI SECONDO
 function disegnaTimer(sec) {
+<<<<<<< Updated upstream
   // pulizia area del canvas (trasparente → si vede lo sfondo pagina dietro)
   ctx.clearRect(0, 0, size, size)
 
@@ -238,11 +382,32 @@ function disegnaTimer(sec) {
   ctx.restore()
 
   // testo “SECONDS” sopra
+=======
+  ctx.clearRect(0, 0, size, size)
+  ctx.save()
+  ctx.shadowColor = SHADOW
+  ctx.shadowBlur = 12
+  ctx.beginPath()
+  ctx.lineWidth = thickness
+  ctx.strokeStyle = COLOR_TRACK
+  ctx.arc(cx, cy, radius, 0, Math.PI * 2)
+  ctx.stroke()
+
+  const progress = Math.max(sec, 0) / TEMPO_MAX
+  const endAngle = startAngle + progress * Math.PI * 2
+  ctx.beginPath()
+  ctx.strokeStyle = COLOR_RING
+  ctx.arc(cx, cy, radius, startAngle, endAngle, false)
+  ctx.stroke()
+  ctx.restore()
+
+>>>>>>> Stashed changes
   ctx.fillStyle = COLOR_TEXT
   ctx.textAlign = "center"
   ctx.globalAlpha = 0.9
   ctx.font = '700 9px "Outfit", sans-serif'
   ctx.fillText("SECONDS", cx, cy - 20)
+<<<<<<< Updated upstream
 
   // numero grande centrale
   ctx.globalAlpha = 1
@@ -250,6 +415,11 @@ function disegnaTimer(sec) {
   ctx.fillText(String(sec), cx, cy + 2)
 
   // testo “REMAINING” sotto
+=======
+  ctx.globalAlpha = 1
+  ctx.font = '700 26px "Outfit", sans-serif'
+  ctx.fillText(String(sec), cx, cy + 2)
+>>>>>>> Stashed changes
   ctx.globalAlpha = 0.8
   ctx.font = '700 9px "Outfit", sans-serif'
   ctx.fillText("REMAINING", cx, cy + 22)
@@ -257,6 +427,7 @@ function disegnaTimer(sec) {
 
 // 3) FUNZIONI PER GESTIRE IL TIMER (start, stop, reset)
 function startTimer() {
+<<<<<<< Updated upstream
   disegnaTimer(tempoRimasto) // prima immagine (30s)
   clearInterval(idTimer)
   idTimer = setInterval(function () {
@@ -274,6 +445,22 @@ function startTimer() {
         // se era l'ultima domanda → vai alla pagina risultati
         salvaPerRisultati()
         window.location.href = "./results-page.html"
+=======
+  disegnaTimer(tempoRimasto)
+  clearInterval(idTimer)
+  idTimer = setInterval(function () {
+    tempoRimasto--
+    if (tempoRimasto < 0) {
+      tempoRimasto = 0
+      stopTimer()
+      if (currentIndex < questions.length - 1) {
+        currentIndex++
+        cicleQuestion(currentIndex)
+        resetTimer()
+        startTimer()
+      } else {
+        window.location.href = "results-page.html"
+>>>>>>> Stashed changes
       }
     }
     disegnaTimer(tempoRimasto)
@@ -286,6 +473,7 @@ function resetTimer() {
 }
 
 function stopTimer() {
+<<<<<<< Updated upstream
   if (idTimer) {
     clearInterval(idTimer)
     idTimer = null
@@ -346,3 +534,9 @@ quizContainer.addEventListener("click", (e) => {
   }
   btn.classList.add("selected")
 })
+=======
+  if (idTimer) clearInterval(idTimer)
+}
+
+startTimer()
+>>>>>>> Stashed changes
