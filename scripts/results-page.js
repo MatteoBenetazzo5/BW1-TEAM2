@@ -1,11 +1,11 @@
 // Recupera le risposte salvate dal benchmark
+const totalQuestions = 10
 const savedAnswers = JSON.parse(localStorage.getItem("userAnswers")) || []
 console.log("Risposte salvate:", savedAnswers)
 
 // Conta quante risposte corrette e sbagliate
 const correctAnswers = savedAnswers.filter((ans) => ans.isCorrect).length
-const wrongAnswers = savedAnswers.length - correctAnswers
-const totalQuestions = savedAnswers.length
+const wrongAnswers = totalQuestions - correctAnswers
 
 // Calcola le percentuali
 const correctPercentage =
