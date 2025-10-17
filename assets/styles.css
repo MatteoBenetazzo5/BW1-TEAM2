@@ -173,8 +173,13 @@ svg {
   color: white;
   border-radius: 25px;
   background: rgba(255, 255, 255, 0.2);
-  border: solid white;
+  border: solid #9d9d9d;
   border-bottom: rgba(255, 255, 255, 0.3);
+  background: linear-gradient(
+    184deg,
+    rgba(255, 255, 255, 0.27) 0%,
+    rgb(164 164 164 / 85%) 100%
+  );
   margin: 0.3em;
 }
 
