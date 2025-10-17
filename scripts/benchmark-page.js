@@ -1,8 +1,8 @@
 // RESET SOLO ALL'AVVIO
 if (!sessionStorage.getItem("quizStarted")) {
-  localStorage.removeItem("userAnswers");
-  localStorage.removeItem("quizResults");
-  sessionStorage.setItem("quizStarted", "true");
+  localStorage.removeItem("userAnswers")
+  localStorage.removeItem("quizResults")
+  sessionStorage.setItem("quizStarted", "true")
 }
 
 // DOMANDE DEL QUIZ
@@ -95,23 +95,23 @@ const questions = [
       { choice: "Falso", correct: false },
     ],
   },
-];
+]
 
 // 🔹 ELEMENTI BASE
-let currentIndex = 0;
-const proxBtn = document.getElementById("prox-btn");
-const quizContainer = document.getElementById("quiz");
-const counterElement = document.querySelector(".tot-question p");
+let currentIndex = 0
+const proxBtn = document.getElementById("prox-btn")
+const quizContainer = document.getElementById("quiz")
+const counterElement = document.querySelector(".tot-question p")
 
 function updateCounter() {
   counterElement.innerHTML = `QUESTION <span class='pink'>${currentIndex + 1}/${
     questions.length
-  }</span>`;
+  }</span>`
 }
 
 // 🔹 MOSTRA DOMANDE
 function cicleQuestion(index) {
-  const q = questions[index];
+  const q = questions[index]
   let html = `<section id="q${index + 1}">
     <div class="question"><h2>${q.question}</h2></div>
     <div class="answers">
@@ -124,65 +124,65 @@ function cicleQuestion(index) {
         )
         .join("")}
     </div>
-  </section>`;
+  </section>`
 
-  quizContainer.innerHTML = html;
-  proxBtn.innerText = index === questions.length - 1 ? "INVIA" : "PROSSIMA";
-  updateCounter();
+  quizContainer.innerHTML = html
+  proxBtn.innerText = index === questions.length - 1 ? "INVIA" : "PROSSIMA" //qui vorrei integrare l'icona della freccia che si va a perdere, ma con questo codice non so come fare. EP
+  updateCounter()
 }
-cicleQuestion(currentIndex);
+cicleQuestion(currentIndex)
 
 // 🔹 SALVATAGGIO RISPOSTE
-let answersGiven = JSON.parse(localStorage.getItem("userAnswers")) || [];
+let answersGiven = JSON.parse(localStorage.getItem("userAnswers")) || []
 
 quizContainer.addEventListener("click", (e) => {
-  const btn = e.target.closest(".choice");
-  if (!btn) return;
+  const btn = e.target.closest(".choice")
+  if (!btn) return
 
-  const section = btn.closest("section");
+  const section = btn.closest("section")
   section
     .querySelectorAll(".choice")
-    .forEach((b) => b.classList.remove("selected"));
-  btn.classList.add("selected");
+    .forEach((b) => b.classList.remove("selected"))
+  btn.classList.add("selected")
 
-  const questionId = section.id;
-  const answerText = btn.textContent.trim();
-  const isCorrect = btn.dataset.correct === "true";
+  const questionId = section.id
+  const answerText = btn.textContent.trim()
+  const isCorrect = btn.dataset.correct === "true"
 
-  const answerObj = { questionId, answerText, isCorrect };
+  const answerObj = { questionId, answerText, isCorrect }
 
   const existingIndex = answersGiven.findIndex(
     (a) => a.questionId === questionId
-  );
+  )
   if (existingIndex !== -1) {
-    answersGiven[existingIndex] = answerObj;
+    answersGiven[existingIndex] = answerObj
   } else {
-    answersGiven.push(answerObj);
+    answersGiven.push(answerObj)
   }
 
-  localStorage.setItem("userAnswers", JSON.stringify(answersGiven));
-});
+  localStorage.setItem("userAnswers", JSON.stringify(answersGiven))
+})
 
 // 🔹 GESTIONE PULSANTE “PROSSIMA / INVIA”
 proxBtn.addEventListener("click", () => {
-  const currentSection = document.querySelector(`#q${currentIndex + 1}`);
-  const selected = currentSection.querySelector(".selected");
+  const currentSection = document.querySelector(`#q${currentIndex + 1}`)
+  const selected = currentSection.querySelector(".selected")
 
   // impedisce di andare avanti senza risposta
   if (!selected) {
-    alert("Seleziona una risposta prima di procedere!");
-    return;
+    alert("Seleziona una risposta prima di procedere!")
+    return
   }
 
   if (currentIndex < questions.length - 1) {
-    currentIndex++;
-    cicleQuestion(currentIndex);
-    resetTimer();
-    startTimer();
+    currentIndex++
+    cicleQuestion(currentIndex)
+    resetTimer()
+    startTimer()
   } else {
-    const savedAnswers = JSON.parse(localStorage.getItem("userAnswers")) || [];
-    const correctCount = savedAnswers.filter((a) => a.isCorrect).length;
-    const wrongCount = savedAnswers.length - correctCount;
+    const savedAnswers = JSON.parse(localStorage.getItem("userAnswers")) || []
+    const correctCount = savedAnswers.filter((a) => a.isCorrect).length
+    const wrongCount = savedAnswers.length - correctCount
 
     localStorage.setItem(
       "quizResults",
@@ -191,105 +191,105 @@ proxBtn.addEventListener("click", () => {
         wrong: wrongCount,
         total: savedAnswers.length,
       })
-    );
+    )
 
     // reset del flag per consentire nuovo quiz
-    sessionStorage.removeItem("quizStarted");
-    window.location.href = "results-page.html";
+    sessionStorage.removeItem("quizStarted")
+    window.location.href = "results-page.html"
   }
-});
+})
 
 // 🔹 TIMER
-const timerCanvas = document.querySelector("#timer");
-const ctx = timerCanvas.getContext("2d");
-const header = document.querySelector("#bnc-header");
-header.style.position = "relative";
-timerCanvas.style.position = "absolute";
-timerCanvas.style.top = "20px";
-timerCanvas.style.right = "24px";
-timerCanvas.style.width = "100px";
-timerCanvas.style.height = "100px";
+const timerCanvas = document.querySelector("#timer")
+const ctx = timerCanvas.getContext("2d")
+const header = document.querySelector("#bnc-header")
+header.style.position = "relative"
+timerCanvas.style.position = "absolute"
+timerCanvas.style.top = "20px"
+timerCanvas.style.right = "24px"
+timerCanvas.style.width = "100px"
+timerCanvas.style.height = "100px"
 
-const DPR = window.devicePixelRatio || 1;
-const CSS_SIZE = 100;
-timerCanvas.width = CSS_SIZE * DPR;
-timerCanvas.height = CSS_SIZE * DPR;
-ctx.scale(DPR, DPR);
+const DPR = window.devicePixelRatio || 1
+const CSS_SIZE = 100
+timerCanvas.width = CSS_SIZE * DPR
+timerCanvas.height = CSS_SIZE * DPR
+ctx.scale(DPR, DPR)
 
-const COLOR_RING = "#00ffff";
-const COLOR_TRACK = "rgba(255,255,255,0.25)";
-const COLOR_TEXT = "#ffffff";
-const SHADOW = "rgba(0,255,255,0.35)";
-const size = CSS_SIZE;
-const cx = size / 2;
-const cy = size / 2;
-const radius = 42;
-const thickness = 10;
-const startAngle = -Math.PI / 2;
-const TEMPO_MAX = 30;
-let tempoRimasto = TEMPO_MAX;
-let idTimer = null;
+const COLOR_RING = "#00ffff"
+const COLOR_TRACK = "rgba(255,255,255,0.25)"
+const COLOR_TEXT = "#ffffff"
+const SHADOW = "rgba(0,255,255,0.35)"
+const size = CSS_SIZE
+const cx = size / 2
+const cy = size / 2
+const radius = 42
+const thickness = 10
+const startAngle = -Math.PI / 2
+const TEMPO_MAX = 30
+let tempoRimasto = TEMPO_MAX
+let idTimer = null
 
 function disegnaTimer(sec) {
-  ctx.clearRect(0, 0, size, size);
-  ctx.save();
-  ctx.shadowColor = SHADOW;
-  ctx.shadowBlur = 12;
-  ctx.beginPath();
-  ctx.lineWidth = thickness;
-  ctx.strokeStyle = COLOR_TRACK;
-  ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-  ctx.stroke();
+  ctx.clearRect(0, 0, size, size)
+  ctx.save()
+  ctx.shadowColor = SHADOW
+  ctx.shadowBlur = 12
+  ctx.beginPath()
+  ctx.lineWidth = thickness
+  ctx.strokeStyle = COLOR_TRACK
+  ctx.arc(cx, cy, radius, 0, Math.PI * 2)
+  ctx.stroke()
 
-  const progress = Math.max(sec, 0) / TEMPO_MAX;
-  const endAngle = startAngle + progress * Math.PI * 2;
-  ctx.beginPath();
-  ctx.strokeStyle = COLOR_RING;
-  ctx.arc(cx, cy, radius, startAngle, endAngle, false);
-  ctx.stroke();
-  ctx.restore();
+  const progress = Math.max(sec, 0) / TEMPO_MAX
+  const endAngle = startAngle + progress * Math.PI * 2
+  ctx.beginPath()
+  ctx.strokeStyle = COLOR_RING
+  ctx.arc(cx, cy, radius, startAngle, endAngle, false)
+  ctx.stroke()
+  ctx.restore()
 
-  ctx.fillStyle = COLOR_TEXT;
-  ctx.textAlign = "center";
-  ctx.globalAlpha = 0.9;
-  ctx.font = '700 9px "Outfit", sans-serif';
-  ctx.fillText("SECONDS", cx, cy - 20);
-  ctx.globalAlpha = 1;
-  ctx.font = '700 26px "Outfit", sans-serif';
-  ctx.fillText(String(sec), cx, cy + 2);
-  ctx.globalAlpha = 0.8;
-  ctx.font = '700 9px "Outfit", sans-serif';
-  ctx.fillText("REMAINING", cx, cy + 22);
+  ctx.fillStyle = COLOR_TEXT
+  ctx.textAlign = "center"
+  ctx.globalAlpha = 0.9
+  ctx.font = '700 9px "Outfit", sans-serif'
+  ctx.fillText("SECONDS", cx, cy - 20)
+  ctx.globalAlpha = 1
+  ctx.font = '700 26px "Outfit", sans-serif'
+  ctx.fillText(String(sec), cx, cy + 2)
+  ctx.globalAlpha = 0.8
+  ctx.font = '700 9px "Outfit", sans-serif'
+  ctx.fillText("REMAINING", cx, cy + 22)
 }
 
 function startTimer() {
-  disegnaTimer(tempoRimasto);
-  clearInterval(idTimer);
+  disegnaTimer(tempoRimasto)
+  clearInterval(idTimer)
   idTimer = setInterval(function () {
-    tempoRimasto--;
+    tempoRimasto--
     if (tempoRimasto < 0) {
-      tempoRimasto = 0;
-      stopTimer();
+      tempoRimasto = 0
+      stopTimer()
       if (currentIndex < questions.length - 1) {
-        currentIndex++;
-        cicleQuestion(currentIndex);
-        resetTimer();
-        startTimer();
+        currentIndex++
+        cicleQuestion(currentIndex)
+        resetTimer()
+        startTimer()
       } else {
-        window.location.href = "results-page.html";
+        window.location.href = "results-page.html"
       }
     }
-    disegnaTimer(tempoRimasto);
-  }, 1000);
+    disegnaTimer(tempoRimasto)
+  }, 1000)
 }
 
 function resetTimer() {
-  tempoRimasto = TEMPO_MAX;
-  disegnaTimer(tempoRimasto);
+  tempoRimasto = TEMPO_MAX
+  disegnaTimer(tempoRimasto)
 }
 
 function stopTimer() {
-  if (idTimer) clearInterval(idTimer);
+  if (idTimer) clearInterval(idTimer)
 }
 
-startTimer();
+startTimer()
