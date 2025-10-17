@@ -200,7 +200,7 @@ proxBtn.addEventListener('click', () => {
 });
 
 // 🔹 TIMER
-// const timerCanvas = document.querySelector("#timer");
+const timerCanvas = document.querySelector('#timer');
 const ctx = timerCanvas.getContext('2d');
 const header = document.querySelector('#bnc-header');
 header.style.position = 'relative';
